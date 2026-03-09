@@ -36,10 +36,10 @@
 
     // Car image URLs per color (using Wikimedia CC images as placeholders)
     const carImages = {
-      red:      'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/2011_Ford_Mustang_-_Flickr_-_skinnylawyer_%281%29.jpg/1280px-2011_Ford_Mustang_-_Flickr_-_skinnylawyer_%281%29.jpg',
-      rose:     'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/2011_Ford_Mustang_-_Flickr_-_skinnylawyer_%281%29.jpg/1280px-2011_Ford_Mustang_-_Flickr_-_skinnylawyer_%281%29.jpg',
-      silver:   'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/2011_Ford_Mustang_-_Flickr_-_skinnylawyer_%281%29.jpg/1280px-2011_Ford_Mustang_-_Flickr_-_skinnylawyer_%281%29.jpg',
-      charcoal: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/2011_Ford_Mustang_-_Flickr_-_skinnylawyer_%281%29.jpg/1280px-2011_Ford_Mustang_-_Flickr_-_skinnylawyer_%281%29.jpg',
+      red:      'img/image.png',
+      rose:     'img/BCO.2bf188dc-cd12-4f33-9126-01d52725d349.png',
+      silver:   'img/BCO.2ee20f78-9f08-4f57-916a-5a8226f056fe.png',
+      charcoal: '',
       black:    'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/2011_Ford_Mustang_-_Flickr_-_skinnylawyer_%281%29.jpg/1280px-2011_Ford_Mustang_-_Flickr_-_skinnylawyer_%281%29.jpg',
     };
 

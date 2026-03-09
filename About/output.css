@@ -184,9 +184,6 @@
       max-width: 96rem;
     }
   }
-  .grid {
-    display: grid;
-  }
   .table {
     display: table;
   }
@@ -201,9 +198,6 @@
   }
   .resize {
     resize: both;
-  }
-  .flex-wrap {
-    flex-wrap: wrap;
   }
   .border {
     border-style: var(--tw-border-style);

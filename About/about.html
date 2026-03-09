@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About — Ginyard International Co.</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --red: #d42020;
+      --red-dark: #a01515;
+      --red-light: #ff3a3a;
+      --bg: #f0f0f2;
+      --white: #ffffff;
+      --dark: #111111;
+      --gray: #666666;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Barlow', sans-serif;
+      background: var(--bg);
+      color: var(--dark);
+      overflow-x: hidden;
+    }
+
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: #e0e0e0; }
+    ::-webkit-scrollbar-thumb { background: var(--red); border-radius: 3px; }
+
+    /* ══ NAVBAR ══ */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(240,240,242,0.9);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(212,32,32,.08);
+      transition: box-shadow .3s;
+    }
+    nav.scrolled { box-shadow: 0 4px 30px rgba(0,0,0,.12); }
+
+    .nav-inner {
+      max-width: 1280px; margin: 0 auto;
+      padding: 0 1.5rem; height: 68px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+
+    .logo { display: flex; align-items: center; gap: .55rem; text-decoration: none; }
+    .logo-icon {
+      width: 34px; height: 34px; background: var(--red);
+      border-radius: 8px; display: grid; place-items: center;
+    }
+    .logo-icon svg { width: 20px; height: 20px; fill: white; }
+    .logo-text {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 700; font-size: 1.05rem;
+      color: var(--dark); letter-spacing: .02em; line-height: 1.2;
+    }
+    .logo-text span { color: var(--red); }
+
+    .nav-links { display: flex; align-items: center; gap: 2.2rem; list-style: none; }
+    .nav-links a {
+      font-size: .92rem; font-weight: 500;
+      color: #444; text-decoration: none;
+      position: relative; transition: color .25s;
+    }
+    .nav-links a::after {
+      content: ''; position: absolute; left: 0; bottom: -3px;
+      width: 0; height: 2px; background: var(--red);
+      border-radius: 1px; transition: width .3s;
+    }
+    .nav-links a:hover { color: var(--red); }
+    .nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
+    .nav-links a.active { color: var(--red); font-weight: 600; }
+
+    .btn-login {
+      background: var(--red) !important; color: white !important;
+      padding: .5rem 1.4rem; border-radius: 50px;
+      font-weight: 600 !important; font-size: .88rem !important;
+      box-shadow: 0 4px 15px rgba(212,32,32,.35);
+      transition: background .25s, transform .2s, box-shadow .25s !important;
+    }
+    .btn-login:hover {
+      background: var(--red-dark) !important;
+      transform: translateY(-1px) !important;
+    }
+    .btn-login::after { display: none !important; }
+
+    .hamburger {
+      display: none; flex-direction: column; gap: 5px;
+      cursor: pointer; padding: 4px; border: none; background: transparent;
+    }
+    .hamburger span {
+      display: block; width: 26px; height: 2px;
+      background: var(--dark); border-radius: 2px;
+      transition: transform .35s, opacity .25s, width .3s;
+    }
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; width: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    .mobile-menu {
+      display: none; position: fixed; top: 68px; left: 0; right: 0;
+      background: rgba(240,240,242,.97); backdrop-filter: blur(16px);
+      padding: 1.5rem; flex-direction: column; gap: 0; z-index: 99;
+      transform: translateY(-10px); opacity: 0;
+      transition: transform .35s ease, opacity .35s ease;
+      border-bottom: 2px solid var(--red);
+    }
+    .mobile-menu.visible { display: flex; transform: translateY(0); opacity: 1; }
+    .mobile-menu a {
+      font-size: 1.1rem; font-weight: 500; color: var(--dark);
+      text-decoration: none; padding: .85rem 0;
+      border-bottom: 1px solid rgba(0,0,0,.07);
+      display: flex; align-items: center; gap: .6rem;
+      transition: color .2s, padding-left .2s;
+    }
+    .mobile-menu a:hover { color: var(--red); padding-left: .4rem; }
+    .mobile-menu a.active { color: var(--red); font-weight: 600; }
+    .mobile-menu .m-login {
+      margin-top: 1rem; background: var(--red); color: white !important;
+      justify-content: center; border-radius: 50px; border-bottom: none;
+      padding: .85rem; font-weight: 700 !important;
+      box-shadow: 0 4px 15px rgba(212,32,32,.35);
+    }
+
+    /* ══ PAGE HEADER ══ */
+    .page-header {
+      padding-top: 68px;
+      background: linear-gradient(135deg, #1a0808 0%, #2d0a0a 50%, #111 100%);
+      position: relative; overflow: hidden;
+    }
+    .page-header-grid {
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(212,32,32,.08) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(212,32,32,.08) 1px, transparent 1px);
+      background-size: 50px 50px;
+    }
+    .page-header-glow {
+      position: absolute; top: -100px; right: -100px;
+      width: 500px; height: 500px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(212,32,32,.3) 0%, transparent 70%);
+    }
+    .page-header-inner {
+      max-width: 1280px; margin: 0 auto;
+      padding: 5rem 1.5rem 4rem;
+      position: relative; z-index: 2;
+    }
+    .page-header-eyebrow {
+      display: inline-flex; align-items: center; gap: .5rem;
+      background: rgba(212,32,32,.15); border: 1px solid rgba(212,32,32,.3);
+      border-radius: 50px; padding: .3rem .9rem;
+      font-size: .75rem; font-weight: 700; letter-spacing: .14em;
+      text-transform: uppercase; color: #ff6b6b; margin-bottom: 1.2rem;
+      opacity: 0; animation: fadeUp .6s .1s forwards;
+    }
+    .page-header-title {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: clamp(3rem, 7vw, 6rem);
+      font-weight: 900; text-transform: uppercase;
+      color: white; line-height: .95;
+      opacity: 0; animation: fadeUp .7s .2s forwards;
+    }
+    .page-header-title .outline {
+      -webkit-text-stroke: 2px rgba(255,255,255,.4);
+      color: transparent;
+    }
+    .page-header-sub {
+      font-size: 1rem; color: rgba(255,255,255,.55);
+      margin-top: 1rem; max-width: 460px; line-height: 1.7;
+      opacity: 0; animation: fadeUp .7s .35s forwards;
+    }
+
+    /* breadcrumb */
+    .breadcrumb {
+      display: flex; align-items: center; gap: .5rem;
+      margin-top: 2rem;
+      opacity: 0; animation: fadeUp .6s .5s forwards;
+    }
+    .breadcrumb a, .breadcrumb span {
+      font-size: .82rem; text-decoration: none;
+      color: rgba(255,255,255,.45); transition: color .2s;
+    }
+    .breadcrumb a:hover { color: var(--red-light); }
+    .breadcrumb .sep { color: rgba(255,255,255,.2); }
+    .breadcrumb .current { color: var(--red-light); font-weight: 600; }
+
+    /* ══ SECTIONS COMMON ══ */
+    section { padding: 5rem 0; }
+    .container { max-width: 1280px; margin: 0 auto; padding: 0 1.5rem; }
+
+    .section-eyebrow {
+      display: inline-flex; align-items: center; gap: .5rem;
+      font-size: .75rem; font-weight: 700; letter-spacing: .14em;
+      text-transform: uppercase; color: var(--red); margin-bottom: .8rem;
+    }
+    .section-eyebrow::before {
+      content: ''; display: block;
+      width: 24px; height: 2px; background: var(--red);
+    }
+    .section-title {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 900; text-transform: uppercase;
+      color: var(--dark); line-height: 1;
+    }
+    .section-title .accent { color: var(--red); }
+
+    /* ══ STORY SECTION ══ */
+    .story-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 4rem; align-items: center;
+    }
+    .story-visual {
+      position: relative;
+    }
+    .story-card-main {
+      background: white;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 20px 60px rgba(0,0,0,.12);
+      aspect-ratio: 4/3;
+      display: flex; align-items: center; justify-content: center;
+      background: linear-gradient(135deg, #1a1a2e, #16213e);
+      position: relative;
+    }
+    .story-car-graphic {
+      font-size: 8rem; line-height: 1;
+      filter: drop-shadow(0 10px 30px rgba(212,32,32,.5));
+      animation: carFloat 4s ease-in-out infinite;
+    }
+    @keyframes carFloat {
+      0%,100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+    .story-year-badge {
+      position: absolute; top: 1.5rem; left: 1.5rem;
+      background: var(--red); color: white;
+      border-radius: 12px; padding: .7rem 1.1rem;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 900; font-size: 1.4rem; line-height: 1;
+    }
+    .story-year-badge small {
+      display: block; font-size: .65rem; font-weight: 500;
+      letter-spacing: .1em; text-transform: uppercase; opacity: .8;
+    }
+    .story-float-card {
+      position: absolute; bottom: -1.5rem; right: -1.5rem;
+      background: white; border-radius: 16px;
+      padding: 1rem 1.4rem;
+      box-shadow: 0 10px 40px rgba(0,0,0,.15);
+      display: flex; align-items: center; gap: .8rem;
+    }
+    .sfc-icon {
+      width: 40px; height: 40px; background: rgba(212,32,32,.1);
+      border-radius: 10px; display: grid; place-items: center; flex-shrink: 0;
+    }
+    .sfc-icon svg { width: 20px; height: 20px; fill: var(--red); }
+    .sfc-num {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 1.5rem; font-weight: 900; color: var(--dark); line-height: 1;
+    }
+    .sfc-lbl { font-size: .72rem; color: var(--gray); font-weight: 500; }
+
+    .story-content { }
+    .story-text {
+      font-size: .95rem; color: var(--gray);
+      line-height: 1.8; margin-top: 1.4rem;
+    }
+    .story-text + .story-text { margin-top: .8rem; }
+
+    .story-highlight {
+      margin-top: 1.8rem;
+      border-left: 3px solid var(--red);
+      padding-left: 1.2rem;
+      font-size: 1.05rem; font-style: italic;
+      color: var(--dark); line-height: 1.6; font-weight: 500;
+    }
+
+    /* ══ STATS BAR ══ */
+    .stats-bar {
+      background: var(--dark);
+      padding: 3.5rem 0;
+      position: relative; overflow: hidden;
+    }
+    .stats-bar::before {
+      content: ''; position: absolute;
+      inset: 0; background: linear-gradient(90deg,
+        rgba(212,32,32,.15) 0%, transparent 50%, rgba(212,32,32,.15) 100%);
+    }
+    .stats-grid {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: 0; position: relative; z-index: 1;
+    }
+    .stat-item {
+      text-align: center; padding: 1.5rem;
+      border-right: 1px solid rgba(255,255,255,.08);
+    }
+    .stat-item:last-child { border-right: none; }
+    .stat-num-big {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: clamp(2.5rem, 4vw, 3.5rem);
+      font-weight: 900; color: var(--red); line-height: 1;
+    }
+    .stat-num-big sup { font-size: 50%; vertical-align: super; }
+    .stat-label-big {
+      font-size: .82rem; color: rgba(255,255,255,.5);
+      margin-top: .4rem; font-weight: 500; letter-spacing: .05em;
+    }
+
+    /* ══ VALUES ══ */
+    .values-section { background: white; }
+    .values-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem; margin-top: 3rem;
+    }
+    .value-card {
+      background: var(--bg);
+      border-radius: 18px; padding: 2rem;
+      position: relative; overflow: hidden;
+      transition: transform .3s, box-shadow .3s;
+      cursor: default;
+    }
+    .value-card::after {
+      content: ''; position: absolute;
+      bottom: 0; left: 0; right: 0; height: 3px;
+      background: var(--red); transform: scaleX(0);
+      transition: transform .4s ease;
+    }
+    .value-card:hover { transform: translateY(-6px); box-shadow: 0 20px 50px rgba(0,0,0,.1); }
+    .value-card:hover::after { transform: scaleX(1); }
+    .value-icon {
+      width: 50px; height: 50px;
+      background: rgba(212,32,32,.1);
+      border-radius: 14px; display: grid; place-items: center;
+      margin-bottom: 1.2rem; transition: background .3s;
+    }
+    .value-card:hover .value-icon { background: var(--red); }
+    .value-icon svg { width: 24px; height: 24px; fill: var(--red); transition: fill .3s; }
+    .value-card:hover .value-icon svg { fill: white; }
+    .value-title {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 1.3rem; font-weight: 800;
+      text-transform: uppercase; color: var(--dark);
+      margin-bottom: .5rem;
+    }
+    .value-desc { font-size: .88rem; color: var(--gray); line-height: 1.7; }
+
+    /* ══ TEAM ══ */
+    .team-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem; margin-top: 3rem;
+    }
+    .team-card {
+      background: white; border-radius: 18px;
+      overflow: hidden;
+      box-shadow: 0 4px 20px rgba(0,0,0,.07);
+      transition: transform .3s, box-shadow .3s;
+    }
+    .team-card:hover { transform: translateY(-6px); box-shadow: 0 16px 40px rgba(0,0,0,.12); }
+    .team-avatar {
+      height: 160px;
+      background: linear-gradient(135deg, #1a1a2e, #2d0a0a);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 3.5rem; position: relative; overflow: hidden;
+    }
+    .team-avatar::after {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(212,32,32,.2), transparent);
+    }
+    .team-info { padding: 1.4rem; }
+    .team-name {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 800; font-size: 1.2rem; text-transform: uppercase;
+      color: var(--dark);
+    }
+    .team-role { font-size: .8rem; color: var(--red); font-weight: 600; margin-top: .15rem; }
+
+    /* ══ SOCIAL ══ */
+    .social-section { background: var(--dark); color: white; text-align: center; }
+    .social-section .section-title { color: white; }
+    .social-section .section-title .accent { color: var(--red-light); }
+    .social-sub { color: rgba(255,255,255,.5); margin-top: .8rem; font-size: .95rem; }
+    .social-grid {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: 1.2rem; margin-top: 3rem;
+    }
+    .social-card {
+      border-radius: 18px; padding: 2rem 1.5rem;
+      display: flex; flex-direction: column; align-items: center; gap: .8rem;
+      text-decoration: none; color: white;
+      transition: transform .3s, box-shadow .3s;
+      position: relative; overflow: hidden;
+    }
+    .social-card::before {
+      content: ''; position: absolute; inset: 0; opacity: 0;
+      transition: opacity .3s;
+    }
+    .social-card:hover { transform: translateY(-6px); }
+    .social-card:hover::before { opacity: 1; }
+
+    .sc-instagram { background: linear-gradient(135deg, #833ab4, #fd1d1d, #fcb045); }
+    .sc-facebook  { background: #1877f2; }
+    .sc-whatsapp  { background: #25d366; }
+    .sc-tiktok    { background: linear-gradient(135deg, #010101, #ff0050); }
+
+    .social-card:hover { box-shadow: 0 16px 40px rgba(0,0,0,.35); }
+
+    .social-icon {
+      width: 56px; height: 56px;
+      background: rgba(255,255,255,.2);
+      border-radius: 16px; display: grid; place-items: center;
+      backdrop-filter: blur(4px);
+    }
+    .social-icon svg { width: 28px; height: 28px; fill: white; }
+    .social-name {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 1.1rem; font-weight: 800; text-transform: uppercase;
+    }
+    .social-handle { font-size: .78rem; opacity: .75; }
+    .social-cta {
+      margin-top: .3rem; font-size: .75rem;
+      background: rgba(255,255,255,.2); border-radius: 50px;
+      padding: .25rem .8rem; font-weight: 600;
+    }
+
+    /* ══ CTA BANNER ══ */
+    .cta-banner {
+      background: var(--red);
+      padding: 4rem 0; text-align: center;
+      position: relative; overflow: hidden;
+    }
+    .cta-banner::before {
+      content: 'GINYARD'; position: absolute;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 12rem; font-weight: 900;
+      color: rgba(255,255,255,.06); white-space: nowrap;
+      top: 50%; left: 50%; transform: translate(-50%,-50%);
+      pointer-events: none; letter-spacing: -.02em;
+    }
+    .cta-banner h2 {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 900; color: white; text-transform: uppercase;
+      position: relative; z-index: 1;
+    }
+    .cta-banner p {
+      color: rgba(255,255,255,.8); margin-top: .8rem;
+      font-size: .95rem; position: relative; z-index: 1;
+    }
+    .cta-btn {
+      display: inline-flex; align-items: center; gap: .5rem;
+      background: white; color: var(--red);
+      padding: .85rem 2.2rem; border-radius: 50px;
+      font-weight: 700; font-size: .95rem;
+      text-decoration: none; margin-top: 1.8rem;
+      position: relative; z-index: 1;
+      transition: transform .2s, box-shadow .2s;
+      box-shadow: 0 6px 20px rgba(0,0,0,.2);
+    }
+    .cta-btn:hover { transform: translateY(-3px); box-shadow: 0 12px 30px rgba(0,0,0,.3); }
+
+    /* ══ FOOTER ══ */
+    footer {
+      background: #0a0a0a; color: rgba(255,255,255,.4);
+      padding: 2rem 0; text-align: center; font-size: .82rem;
+    }
+    footer span { color: var(--red); }
+
+    /* ══ ANIMATIONS ══ */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .reveal {
+      opacity: 0; transform: translateY(30px);
+      transition: opacity .7s ease, transform .7s ease;
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-delay-1 { transition-delay: .1s; }
+    .reveal-delay-2 { transition-delay: .2s; }
+    .reveal-delay-3 { transition-delay: .3s; }
+    .reveal-delay-4 { transition-delay: .4s; }
+
+    /* ══ RESPONSIVE ══ */
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+
+      .story-grid { grid-template-columns: 1fr; gap: 3rem; }
+      .story-float-card { right: 0; }
+
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+      .stat-item:nth-child(2) { border-right: none; }
+
+      .values-grid { grid-template-columns: 1fr; }
+      .team-grid { grid-template-columns: repeat(2, 1fr); }
+      .social-grid { grid-template-columns: repeat(2, 1fr); }
+
+      section { padding: 3.5rem 0; }
+    }
+
+    @media (max-width: 480px) {
+      .team-grid { grid-template-columns: 1fr; }
+      .social-grid { grid-template-columns: 1fr; }
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ══ NAVBAR ══ -->
+  <nav id="navbar">
+    <div class="nav-inner">
+      <a href="../index (1).html" class="logo">
+        <div class="logo-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm0 3l2 4h4l-3.2 2.3 1.2 4-4-2.7-4 2.7 1.2-4L6 9h4l2-4z"/></svg>
+        </div>
+        <div class="logo-text">Ginyard<br><span>International Co.</span></div>
+      </a>
+      <ul class="nav-links">
+        <li><a href="../index (1).html">Home</a></li>
+        <li><a href="about.html" class="active">About</a></li>
+        <li><a href="#">Catalogue</a></li>
+        <li><a href="#">Contact</a></li>
+        <li><a href="#" class="btn-login">Log in</a></li>
+      </ul>
+      <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+    </div>
+  </nav>
+
+  <!-- Mobile Menu -->
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="../index (1).html">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>Home
+    </a>
+    <a href="about.html" class="active">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.1 2 5 5.1 5 9c0 5.2 7 13 7 13s7-7.8 7-13c0-3.9-3.1-7-7-7zm0 9.5c-1.4 0-2.5-1.1-2.5-2.5S10.6 6.5 12 6.5 14.5 7.6 14.5 9 13.4 11.5 12 11.5z"/></svg>About
+    </a>
+    <a href="#">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M4 6h16v2H4zm0 5h16v2H4zm0 5h16v2H4z"/></svg>Catalogue
+    </a>
+    <a href="#">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>Contact
+    </a>
+    <a href="#" class="m-login">Log in →</a>
+  </div>
+
+  <!-- ══ PAGE HEADER ══ -->
+  <header class="page-header">
+    <div class="page-header-grid"></div>
+    <div class="page-header-glow"></div>
+    <div class="page-header-inner">
+      <div class="page-header-eyebrow">⭐ Est. 1999 — UAE</div>
+      <h1 class="page-header-title">
+        About<br><span class="outline">Ginyard</span>
+      </h1>
+      <p class="page-header-sub">
+        Over 25 years of delivering exclusive sports cars and unforgettable driving experiences across the UAE.
+      </p>
+      <nav class="breadcrumb" aria-label="Breadcrumb">
+        <a href="index.html">Home</a>
+        <span class="sep">›</span>
+        <span class="current">About Us</span>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ══ STORY ══ -->
+  <section>
+    <div class="container">
+      <div class="story-grid">
+
+        <!-- Visual -->
+        <div class="story-visual reveal">
+          <div class="story-card-main">
+            <div class="story-car-graphic">🏎️</div>
+            <div class="story-year-badge">
+              <small>Founded</small>
+              1999
+            </div>
+          </div>
+          <div class="story-float-card">
+            <div class="sfc-icon">
+              <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+            </div>
+            <div>
+              <div class="sfc-num">25<sup>+</sup></div>
+              <div class="sfc-lbl">Years of Excellence</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Content -->
+        <div class="story-content">
+          <div class="section-eyebrow reveal">Our Story</div>
+          <h2 class="section-title reveal reveal-delay-1">
+            Passion Meets<br><span class="accent">Precision</span>
+          </h2>
+
+          <p class="story-text reveal reveal-delay-2">
+            Founded in 1999 in the heart of the UAE, Ginyard International Co. was built on a single conviction — that every driver deserves a car that matches their personality and ambition. From day one, we set out to bring the world's most thrilling sports cars to those who truly appreciate them.
+          </p>
+          <p class="story-text reveal reveal-delay-2">
+            Over more than two decades, we have refined our approach to automotive retail. We don't simply sell cars; we listen carefully to each customer's taste, lifestyle, and vision, then guide them to the model that becomes an extension of who they are.
+          </p>
+
+          <blockquote class="story-highlight reveal reveal-delay-3">
+            "Our goal has always been to understand your taste — and then exceed your expectations."
+          </blockquote>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ STATS BAR ══ -->
+  <div class="stats-bar">
+    <div class="container">
+      <div class="stats-grid">
+        <div class="stat-item reveal">
+          <div class="stat-num-big" data-target="1999" data-display="year">1999</div>
+          <div class="stat-label-big">Year Founded</div>
+        </div>
+        <div class="stat-item reveal reveal-delay-1">
+          <div class="stat-num-big" data-target="500">0<sup>+</sup></div>
+          <div class="stat-label-big">Cars Delivered</div>
+        </div>
+        <div class="stat-item reveal reveal-delay-2">
+          <div class="stat-num-big" data-target="98">0<sup>%</sup></div>
+          <div class="stat-label-big">Customer Satisfaction</div>
+        </div>
+        <div class="stat-item reveal reveal-delay-3">
+          <div class="stat-num-big" data-target="30">0<sup>+</sup></div>
+          <div class="stat-label-big">Premium Brands</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ VALUES ══ -->
+  <section class="values-section">
+    <div class="container">
+      <div style="text-align:center; max-width:500px; margin:0 auto;">
+        <div class="section-eyebrow reveal" style="justify-content:center;">What Drives Us</div>
+        <h2 class="section-title reveal reveal-delay-1">Our Core <span class="accent">Values</span></h2>
+        <p class="reveal reveal-delay-2" style="color:var(--gray);margin-top:.8rem;font-size:.92rem;line-height:1.7;">
+          Three pillars that have guided every decision since 1999.
+        </p>
+      </div>
+
+      <div class="values-grid">
+        <div class="value-card reveal">
+          <div class="value-icon">
+            <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z"/></svg>
+          </div>
+          <div class="value-title">Customer First</div>
+          <p class="value-desc">We invest time to understand every client's unique taste and driving style before recommending a single model. Your satisfaction is our starting point, not our finish line.</p>
+        </div>
+        <div class="value-card reveal reveal-delay-1">
+          <div class="value-icon">
+            <svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z"/></svg>
+          </div>
+          <div class="value-title">Uncompromised Quality</div>
+          <p class="value-desc">Every vehicle in our showroom passes a rigorous inspection process. We partner exclusively with trusted manufacturers to guarantee authenticity and peak performance.</p>
+        </div>
+        <div class="value-card reveal reveal-delay-2">
+          <div class="value-icon">
+            <svg viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
+          </div>
+          <div class="value-title">Lasting Relationships</div>
+          <p class="value-desc">We don't close deals — we open relationships. Our team stays with you long after the sale, providing ongoing support, advice, and access to the latest arrivals.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ TEAM ══ -->
+  <section>
+    <div class="container">
+      <div style="text-align:center; max-width:500px; margin:0 auto 3rem;">
+        <div class="section-eyebrow reveal" style="justify-content:center;">The People</div>
+        <h2 class="section-title reveal reveal-delay-1">Meet The <span class="accent">Team</span></h2>
+      </div>
+      <div class="team-grid">
+        <div class="team-card reveal">
+          <div class="team-avatar">🧑‍💼</div>
+          <div class="team-info">
+            <div class="team-name">Ahmad Al-Rashid</div>
+            <div class="team-role">Founder & CEO</div>
+          </div>
+        </div>
+        <div class="team-card reveal reveal-delay-1">
+          <div class="team-avatar">👩‍💼</div>
+          <div class="team-info">
+            <div class="team-name">Sara Khalil</div>
+            <div class="team-role">Head of Sales</div>
+          </div>
+        </div>
+        <div class="team-card reveal reveal-delay-2">
+          <div class="team-avatar">🧑‍🔧</div>
+          <div class="team-info">
+            <div class="team-name">Omar Yusuf</div>
+            <div class="team-role">Chief Inspector</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ SOCIAL MEDIA ══ -->
+  <section class="social-section">
+    <div class="container">
+      <div class="section-eyebrow reveal" style="justify-content:center; color:rgba(255,255,255,.5);">
+        Follow Us
+      </div>
+      <h2 class="section-title reveal reveal-delay-1">Stay <span class="accent">Connected</span></h2>
+      <p class="social-sub reveal reveal-delay-2">Join our community and be the first to see our latest arrivals.</p>
+
+      <div class="social-grid">
+
+        <!-- Instagram -->
+        <a href="https://instagram.com/ginyard" target="_blank" class="social-card sc-instagram reveal">
+          <div class="social-icon">
+            <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+          </div>
+          <div class="social-name">Instagram</div>
+          <div class="social-handle">@ginyard</div>
+          <div class="social-cta">Follow →</div>
+        </a>
+
+        <!-- Facebook -->
+        <a href="https://facebook.com/ginyard" target="_blank" class="social-card sc-facebook reveal reveal-delay-1">
+          <div class="social-icon">
+            <svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+          </div>
+          <div class="social-name">Facebook</div>
+          <div class="social-handle">Ginyard International</div>
+          <div class="social-cta">Like Page →</div>
+        </a>
+
+        <!-- WhatsApp -->
+        <a href="https://wa.me/971500000000" target="_blank" class="social-card sc-whatsapp reveal reveal-delay-2">
+          <div class="social-icon">
+            <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          </div>
+          <div class="social-name">WhatsApp</div>
+          <div class="social-handle">+971 50 000 0000</div>
+          <div class="social-cta">Chat Now →</div>
+        </a>
+
+        <!-- TikTok -->
+        <a href="https://tiktok.com/@ginyard" target="_blank" class="social-card sc-tiktok reveal reveal-delay-3">
+          <div class="social-icon">
+            <svg viewBox="0 0 24 24"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg>
+          </div>
+          <div class="social-name">TikTok</div>
+          <div class="social-handle">@ginyard</div>
+          <div class="social-cta">Watch →</div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ CTA BANNER ══ -->
+  <div class="cta-banner">
+    <h2>Ready to Find Your Dream Car?</h2>
+    <p>Visit our showroom in the UAE or browse our full catalogue online.</p>
+    <a href="index.html" class="cta-btn">
+      Explore Catalogue
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M8 4l8 8-8 8"/></svg>
+    </a>
+  </div>
+
+  <!-- ══ FOOTER ══ -->
+  <footer>
+    <p>© 2025 <span>Ginyard International Co.</span> — UAE. All rights reserved.</p>
+  </footer>
+
+  <!-- ══ JS ══ -->
+  <script src="index.js">
+   
+  </script>
+</body>
+</html>
