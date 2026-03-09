@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="ar" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ginyard International Co. — Exclusive Sports Cars</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --red: #d42020;
+      --red-dark: #a01515;
+      --red-light: #ff3a3a;
+      --bg: #f0f0f2;
+      --white: #ffffff;
+      --dark: #111111;
+      --gray: #888888;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Barlow', sans-serif;
+      background: var(--bg);
+      color: var(--dark);
+      overflow-x: hidden;
+    }
+
+    /* ── SCROLLBAR ── */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: #e0e0e0; }
+    ::-webkit-scrollbar-thumb { background: var(--red); border-radius: 3px; }
+
+    /* ── NAVBAR ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(240,240,242,0.88);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(212,32,32,0.08);
+      transition: box-shadow .3s;
+    }
+    nav.scrolled { box-shadow: 0 4px 30px rgba(0,0,0,.12); }
+
+    .nav-inner {
+      max-width: 1280px; margin: 0 auto;
+      padding: 0 1.5rem;
+      height: 68px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+
+    .logo {
+      display: flex; align-items: center; gap: .55rem;
+      text-decoration: none; flex-shrink: 0;
+    }
+    .logo-icon {
+      width: 34px; height: 34px;
+      background: var(--red);
+      border-radius: 8px;
+      display: grid; place-items: center;
+      flex-shrink: 0;
+    }
+    .logo-icon svg { width: 20px; height: 20px; fill: white; }
+    .logo-text {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 700; font-size: 1.05rem;
+      color: var(--dark); letter-spacing: .02em;
+      line-height: 1.2;
+    }
+    .logo-text span { color: var(--red); }
+
+    /* desktop links */
+    .nav-links {
+      display: flex; align-items: center; gap: 2.2rem;
+      list-style: none;
+    }
+    .nav-links a {
+      font-size: .92rem; font-weight: 500;
+      color: #444; text-decoration: none;
+      position: relative; transition: color .25s;
+    }
+    .nav-links a::after {
+      content: ''; position: absolute;
+      left: 0; bottom: -3px;
+      width: 0; height: 2px;
+      background: var(--red); border-radius: 1px;
+      transition: width .3s ease;
+    }
+    .nav-links a:hover { color: var(--red); }
+    .nav-links a:hover::after,
+    .nav-links a.active::after { width: 100%; }
+    .nav-links a.active { color: var(--red); font-weight: 600; }
+
+    .btn-login {
+      background: var(--red);
+      color: white !important;
+      padding: .5rem 1.4rem;
+      border-radius: 50px;
+      font-weight: 600 !important;
+      font-size: .88rem !important;
+      transition: background .25s, transform .2s, box-shadow .25s !important;
+      box-shadow: 0 4px 15px rgba(212,32,32,.35);
+    }
+    .btn-login:hover {
+      background: var(--red-dark) !important;
+      transform: translateY(-1px) !important;
+      box-shadow: 0 6px 20px rgba(212,32,32,.45) !important;
+    }
+    .btn-login::after { display: none !important; }
+
+    /* hamburger */
+    .hamburger {
+      display: none;
+      flex-direction: column; gap: 5px;
+      cursor: pointer; padding: 4px; border: none;
+      background: transparent;
+    }
+    .hamburger span {
+      display: block; width: 26px; height: 2px;
+      background: var(--dark);
+      border-radius: 2px;
+      transition: transform .35s, opacity .25s, width .3s;
+    }
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; width: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    /* mobile menu */
+    .mobile-menu {
+      display: none;
+      position: fixed; top: 68px; left: 0; right: 0;
+      background: rgba(240,240,242,.97);
+      backdrop-filter: blur(16px);
+      padding: 1.5rem;
+      flex-direction: column; gap: 0;
+      z-index: 99;
+      transform: translateY(-10px);
+      opacity: 0;
+      transition: transform .35s ease, opacity .35s ease;
+      border-bottom: 2px solid var(--red);
+    }
+    .mobile-menu.visible {
+      display: flex;
+      transform: translateY(0);
+      opacity: 1;
+    }
+    .mobile-menu a {
+      font-size: 1.1rem; font-weight: 500;
+      color: var(--dark); text-decoration: none;
+      padding: .85rem 0;
+      border-bottom: 1px solid rgba(0,0,0,.07);
+      display: flex; align-items: center; gap: .6rem;
+      transition: color .2s, padding-left .2s;
+    }
+    .mobile-menu a:hover { color: var(--red); padding-left: .4rem; }
+    .mobile-menu a.active { color: var(--red); font-weight: 600; }
+    .mobile-menu .m-login {
+      margin-top: 1rem;
+      background: var(--red);
+      color: white !important;
+      justify-content: center;
+      border-radius: 50px;
+      border-bottom: none;
+      padding: .85rem;
+      font-weight: 700 !important;
+      box-shadow: 0 4px 15px rgba(212,32,32,.35);
+    }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: flex; align-items: center;
+      padding-top: 68px;
+      position: relative; overflow: hidden;
+    }
+
+    /* background decorative shapes */
+    .hero-bg-circle {
+      position: absolute; border-radius: 50%;
+      background: radial-gradient(circle, rgba(212,32,32,.12), transparent 70%);
+      pointer-events: none;
+    }
+    .hbc-1 { width: 700px; height: 700px; top: -200px; right: -150px; }
+    .hbc-2 { width: 400px; height: 400px; bottom: -100px; left: -100px; }
+
+    /* diagonal red accent */
+    .hero-accent {
+      position: absolute; bottom: 0; right: 0;
+      width: 45%; height: 100%;
+      background: linear-gradient(135deg, transparent 30%, rgba(212,32,32,.06) 100%);
+      pointer-events: none;
+    }
+
+    /* grid lines deco */
+    .hero-grid {
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(212,32,32,.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(212,32,32,.04) 1px, transparent 1px);
+      background-size: 60px 60px;
+      pointer-events: none;
+    }
+
+    .hero-inner {
+      max-width: 1280px; margin: 0 auto;
+      padding: 4rem 1.5rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      gap: 2rem;
+      width: 100%;
+      position: relative; z-index: 2;
+    }
+
+    /* left copy */
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: .5rem;
+      background: rgba(212,32,32,.1);
+      border: 1px solid rgba(212,32,32,.2);
+      border-radius: 50px;
+      padding: .35rem 1rem;
+      font-size: .78rem; font-weight: 600;
+      color: var(--red); letter-spacing: .12em;
+      text-transform: uppercase;
+      margin-bottom: 1.2rem;
+      opacity: 0; animation: fadeUp .6s .1s forwards;
+    }
+    .hero-badge span.dot {
+      width: 7px; height: 7px;
+      background: var(--red); border-radius: 50%;
+      animation: pulse 1.5s infinite;
+    }
+
+    @keyframes pulse {
+      0%,100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.4); opacity: .6; }
+    }
+
+    .hero-title {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: clamp(3.5rem, 7vw, 6.5rem);
+      font-weight: 900;
+      line-height: .92;
+      letter-spacing: -.01em;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 1.4rem;
+      opacity: 0; animation: fadeUp .7s .2s forwards;
+    }
+    .hero-title .outline {
+      -webkit-text-stroke: 2px var(--red);
+      color: transparent;
+    }
+
+    .hero-desc-title {
+      font-size: 1rem; font-weight: 700;
+      color: var(--dark); margin-bottom: .4rem;
+      opacity: 0; animation: fadeUp .7s .35s forwards;
+    }
+    .hero-desc {
+      font-size: .92rem; color: #666; line-height: 1.7;
+      max-width: 340px;
+      opacity: 0; animation: fadeUp .7s .45s forwards;
+      margin-bottom: 2rem;
+    }
+
+    .hero-cta {
+      display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;
+      opacity: 0; animation: fadeUp .7s .55s forwards;
+    }
+    .btn-primary {
+      background: var(--red);
+      color: white;
+      padding: .75rem 2rem;
+      border-radius: 50px;
+      font-weight: 700; font-size: .92rem;
+      text-decoration: none; border: none; cursor: pointer;
+      box-shadow: 0 6px 20px rgba(212,32,32,.4);
+      transition: transform .2s, box-shadow .2s, background .2s;
+      display: inline-flex; align-items: center; gap: .5rem;
+    }
+    .btn-primary:hover {
+      background: var(--red-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 10px 28px rgba(212,32,32,.5);
+    }
+    .btn-secondary {
+      background: transparent;
+      color: var(--dark);
+      padding: .73rem 1.8rem;
+      border-radius: 50px;
+      font-weight: 600; font-size: .92rem;
+      text-decoration: none; cursor: pointer;
+      border: 2px solid var(--dark);
+      transition: border-color .2s, color .2s, transform .2s;
+      display: inline-flex; align-items: center; gap: .5rem;
+    }
+    .btn-secondary:hover {
+      border-color: var(--red); color: var(--red);
+      transform: translateY(-2px);
+    }
+
+    /* stats row */
+    .hero-stats {
+      display: flex; gap: 2rem; margin-top: 2.5rem;
+      opacity: 0; animation: fadeUp .7s .7s forwards;
+    }
+    .stat { display: flex; flex-direction: column; }
+    .stat-num {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 1.8rem; font-weight: 900;
+      color: var(--red); line-height: 1;
+    }
+    .stat-label { font-size: .78rem; color: #888; font-weight: 500; margin-top: .15rem; }
+
+    /* right — car */
+    .hero-car {
+      position: relative;
+      display: flex; align-items: center; justify-content: center;
+    }
+
+    .car-glow {
+      position: absolute;
+      width: 80%; height: 60%;
+      background: radial-gradient(ellipse, rgba(212,32,32,.18) 0%, transparent 70%);
+      border-radius: 50%;
+      bottom: 5%;
+      filter: blur(20px);
+      animation: glowPulse 3s ease-in-out infinite;
+    }
+    @keyframes glowPulse {
+      0%,100% { opacity: .7; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.05); }
+    }
+
+    .car-img {
+      width: 100%; max-width: 620px;
+      position: relative; z-index: 2;
+      filter: drop-shadow(0 30px 60px rgba(0,0,0,.25));
+      animation: carFloat 4s ease-in-out infinite, fadeIn .9s .3s both;
+      transform-origin: center bottom;
+    }
+    @keyframes carFloat {
+      0%,100% { transform: translateY(0) rotate(0deg); }
+      50% { transform: translateY(-12px) rotate(.4deg); }
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateX(40px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+
+    /* color picker */
+    .color-picker {
+      display: flex; align-items: center; gap: .9rem;
+      margin-top: 1.8rem;
+      opacity: 0; animation: fadeUp .7s .5s forwards;
+      flex-wrap: wrap;
+    }
+    .color-picker-label {
+      font-size: .82rem; font-weight: 700;
+      color: var(--dark); letter-spacing: .05em;
+    }
+    .color-dots { display: flex; gap: .6rem; align-items: center; }
+    .cdot {
+      width: 26px; height: 26px; border-radius: 50%;
+      cursor: pointer; border: 2px solid transparent;
+      transition: transform .2s, border-color .2s, box-shadow .2s;
+      position: relative;
+    }
+    .cdot:hover { transform: scale(1.2); }
+    .cdot.active {
+      border-color: rgba(0,0,0,.25);
+      box-shadow: 0 0 0 2px white, 0 0 0 4px rgba(0,0,0,.25);
+      transform: scale(1.1);
+    }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(22px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 1024px) {
+      .hero-inner { gap: 1rem; }
+      .hero-title { font-size: clamp(3rem, 6vw, 5rem); }
+    }
+
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+
+      .hero-inner {
+        grid-template-columns: 1fr;
+        text-align: center;
+        padding: 2rem 1.25rem 3rem;
+      }
+      .hero-left { order: 2; }
+      .hero-right { order: 1; }
+      .hero-badge { margin: 0 auto 1rem; }
+      .hero-desc { margin: 0 auto 1.8rem; }
+      .hero-cta { justify-content: center; }
+      .hero-stats { justify-content: center; }
+      .color-picker { justify-content: center; }
+      .car-img { max-width: 90vw; }
+      .hbc-1 { width: 400px; height: 400px; top: -100px; right: -100px; }
+    }
+
+    @media (max-width: 480px) {
+      .hero-title { font-size: 3rem; }
+      .hero-stats { gap: 1.4rem; }
+      .btn-primary, .btn-secondary { padding: .7rem 1.5rem; font-size: .85rem; }
+    }
+
+    /* ── FLOATING SPECS BADGE ── */
+    .spec-badge {
+      position: absolute;
+      background: white;
+      border-radius: 14px;
+      padding: .65rem 1rem;
+      box-shadow: 0 8px 30px rgba(0,0,0,.13);
+      display: flex; align-items: center; gap: .6rem;
+      font-size: .8rem; font-weight: 600;
+      z-index: 5;
+      animation: badgeFloat 3.5s ease-in-out infinite;
+    }
+    .spec-badge .sb-icon {
+      width: 30px; height: 30px;
+      background: var(--red);
+      border-radius: 8px;
+      display: grid; place-items: center;
+      flex-shrink: 0;
+    }
+    .spec-badge .sb-icon svg { width: 16px; height: 16px; fill: white; }
+    .spec-badge .sb-val { color: var(--red); font-size: 1rem; }
+    .spec-badge .sb-lbl { color: #888; font-weight: 400; font-size: .72rem; }
+    .sb-top { top: 12%; right: -2%; }
+    .sb-bot { bottom: 20%; right: 2%; }
+    @keyframes badgeFloat {
+      0%,100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+    @media (max-width: 768px) {
+      .spec-badge { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ══════════════ NAVBAR ══════════════ -->
+  <nav id="navbar">
+    <div class="nav-inner">
+
+      <!-- Logo -->
+      <a href="#" class="logo">
+        <div class="logo-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm0 3l2 4h4l-3.2 2.3 1.2 4-4-2.7-4 2.7 1.2-4L6 9h4l2-4z"/></svg>
+        </div>
+        <div class="logo-text">Ginyard<br><span>International Co.</span></div>
+      </a>
+
+      <!-- Desktop links -->
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#" class="active">Home</a></li>
+        <li><a href="#">About</a></li>
+        <li><a href="#">Catalogue</a></li>
+        <li><a href="#">Contact</a></li>
+        <li><a href="#" class="btn-login">Log in</a></li>
+      </ul>
+
+      <!-- Hamburger -->
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Mobile Menu -->
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#" class="active">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+      Home
+    </a>
+    <a href="#">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/></svg>
+      About
+    </a>
+    <a href="#">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M4 6h16v2H4zm0 5h16v2H4zm0 5h16v2H4z"/></svg>
+      Catalogue
+    </a>
+    <a href="#">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+      Contact
+    </a>
+    <a href="#" class="m-login">Log in →</a>
+  </div>
+
+  <!-- ══════════════ HERO ══════════════ -->
+  <section class="hero" id="hero">
+    <div class="hero-grid"></div>
+    <div class="hero-bg-circle hbc-1"></div>
+    <div class="hero-bg-circle hbc-2"></div>
+    <div class="hero-accent"></div>
+
+    <div class="hero-inner">
+
+      <!-- Left: copy -->
+      <div class="hero-left">
+        <div class="hero-badge">
+          <span class="dot"></span>
+          New in Stock
+        </div>
+
+        <h1 class="hero-title">
+          Exclusive<br>
+          Sports<br>
+          <span class="outline">Car</span>
+        </h1>
+
+        <p class="hero-desc-title">Sports cars advanced features.</p>
+        <p class="hero-desc">
+          Sports cars offer advanced features and high-quality materials
+          for a more comfortable and thrilling driving experience.
+        </p>
+
+        <div class="hero-cta">
+          <a href="#" class="btn-primary">
+            Buy Now
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M8 4l8 8-8 8"/></svg>
+          </a>
+          <a href="#" class="btn-secondary">
+            See more
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M8 4l8 8-8 8"/></svg>
+          </a>
+        </div>
+
+        <div class="hero-stats">
+          <div class="stat">
+            <span class="stat-num" data-target="320">0</span>
+            <span class="stat-label">km/h Top Speed</span>
+          </div>
+          <div class="stat">
+            <span class="stat-num" data-target="3" data-suffix=".2s">0</span>
+            <span class="stat-label">0–100 km/h</span>
+          </div>
+          <div class="stat">
+            <span class="stat-num" data-target="550" data-suffix="hp">0</span>
+            <span class="stat-label">Horsepower</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: car image + color picker -->
+      <div class="hero-right" style="position:relative;">
+        <div class="hero-car">
+          <div class="car-glow" id="carGlow"></div>
+          <img
+            id="carImage"
+            class="car-img"
+            src=" "
+            alt="Exclusive Sports Car"
+          />
+        </div>
+
+        <!-- Floating spec badges -->
+        <div class="spec-badge sb-top">
+          <div class="sb-icon">
+            <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 100 20A10 10 0 0012 2zm1 14.93V15a1 1 0 00-2 0v1.93A8 8 0 014.07 13H6a1 1 0 000-2H4.07A8 8 0 0111 4.07V6a1 1 0 002 0V4.07A8 8 0 0119.93 11H18a1 1 0 000 2h1.93A8 8 0 0113 16.93z"/></svg>
+          </div>
+          <div>
+            <div class="sb-val">V8 Engine</div>
+            <div class="sb-lbl">Performance Core</div>
+          </div>
+        </div>
+
+        <div class="spec-badge sb-bot" style="animation-delay:.8s">
+          <div class="sb-icon">
+            <svg viewBox="0 0 24 24"><path d="M13 2.05V4.1c3.95.49 7 3.85 7 7.9 0 3.21-1.81 6-4.72 7.28L13 17.5V22l7-4v-6c0-5.18-3.94-9.45-9-9.95zM11 2.05C5.95 2.55 2 6.82 2 12v.28l2-1.43V12c0-4.05 3.05-7.41 7-7.9V2.05z"/></svg>
+          </div>
+          <div>
+            <div class="sb-val">AWD</div>
+            <div class="sb-lbl">All-Wheel Drive</div>
+          </div>
+        </div>
+
+        <!-- Color Picker -->
+        <div class="color-picker">
+          <span class="color-picker-label">Choose Color:</span>
+          <div class="color-dots">
+            <div class="cdot active" style="background:#d42020;" data-color="red" data-glow="rgba(212,32,32,.25)" title="Racing Red"></div>
+            <div class="cdot" style="background:#d4b0b0;" data-color="rose" data-glow="rgba(212,176,176,.25)" title="Pearl Rose"></div>
+            <div class="cdot" style="background:#b0b0b8;" data-color="silver" data-glow="rgba(176,176,184,.25)" title="Silver"></div>
+            <div class="cdot" style="background:#555;" data-color="charcoal" data-glow="rgba(85,85,85,.25)" title="Charcoal"></div>
+            <div class="cdot" style="background:#111;" data-color="black" data-glow="rgba(0,0,0,.3)" title="Midnight Black"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script src="index.js">
+
+  </script>
+</body>
+</html>
