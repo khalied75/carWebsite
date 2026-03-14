@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login — Ginyard International Co.</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800;900&family=Barlow:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --red: #d42020;
+      --red-dark: #a01515;
+      --red-light: #ff4444;
+      --bg: #f0f0f2;
+      --dark: #0d0d0d;
+      --gray: #666;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body { height: 100%; }
+    body { font-family: 'Barlow', sans-serif; background: var(--dark); overflow-x: hidden; }
+
+    /* ── LAYOUT ── */
+    .page {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+
+    /* ── LEFT PANEL ── */
+    .left-panel {
+      position: relative;
+      overflow: hidden;
+      display: flex; flex-direction: column;
+      justify-content: space-between;
+      padding: 2.5rem;
+      background: #0a0a0a;
+    }
+
+    /* grid deco */
+    .lp-grid {
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(212,32,32,.07) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(212,32,32,.07) 1px, transparent 1px);
+      background-size: 44px 44px;
+      pointer-events: none;
+    }
+    .lp-glow {
+      position: absolute; bottom: -100px; left: -100px;
+      width: 500px; height: 500px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(212,32,32,.22) 0%, transparent 65%);
+      pointer-events: none;
+    }
+    .lp-glow2 {
+      position: absolute; top: -60px; right: -60px;
+      width: 280px; height: 280px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(212,32,32,.1) 0%, transparent 65%);
+      pointer-events: none;
+    }
+
+    /* floating car */
+    .lp-car-wrap {
+      position: absolute; inset: 0;
+      display: flex; align-items: center; justify-content: center;
+      pointer-events: none;
+    }
+    .lp-car {
+      width: 90%; max-width: 480px;
+      filter: drop-shadow(0 30px 60px rgba(212,32,32,.35)) brightness(.9);
+      animation: carFloat 5s ease-in-out infinite;
+      opacity: .55;
+    }
+    @keyframes carFloat {
+      0%,100% { transform: translateY(0) rotate(-.5deg); }
+      50%      { transform: translateY(-16px) rotate(.5deg); }
+    }
+
+    /* logo */
+    .lp-logo {
+      display: flex; align-items: center; gap: .6rem;
+      text-decoration: none; position: relative; z-index: 2;
+    }
+    .lp-logo-icon {
+      width: 36px; height: 36px; background: var(--red);
+      border-radius: 9px; display: grid; place-items: center;
+      flex-shrink: 0;
+    }
+    .lp-logo-icon svg { width: 20px; height: 20px; fill: white; }
+    .lp-logo-text {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 700; font-size: 1.05rem; color: white;
+      line-height: 1.2;
+    }
+    .lp-logo-text span { color: var(--red-light); }
+
+    /* bottom copy */
+    .lp-bottom { position: relative; z-index: 2; }
+    .lp-tagline {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: clamp(2.2rem, 3.5vw, 3.2rem);
+      font-weight: 900; text-transform: uppercase;
+      color: white; line-height: .95;
+      margin-bottom: 1rem;
+    }
+    .lp-tagline .red { color: var(--red-light); }
+    .lp-tagline .outline {
+      -webkit-text-stroke: 1.5px rgba(255,255,255,.35);
+      color: transparent;
+    }
+    .lp-desc { font-size: .88rem; color: rgba(255,255,255,.45); line-height: 1.7; max-width: 340px; }
+
+    /* trust badges */
+    .lp-badges {
+      display: flex; gap: .8rem; margin-top: 1.5rem; flex-wrap: wrap;
+    }
+    .lp-badge {
+      display: flex; align-items: center; gap: .4rem;
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.1);
+      border-radius: 50px; padding: .3rem .8rem;
+      font-size: .75rem; color: rgba(255,255,255,.55);
+      font-weight: 600;
+    }
+    .lp-badge svg { width: 12px; height: 12px; fill: var(--red-light); flex-shrink: 0; }
+
+    /* ── RIGHT PANEL ── */
+    .right-panel {
+      background: var(--bg);
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      padding: 2.5rem 2rem;
+      min-height: 100vh;
+      overflow-y: auto;
+    }
+
+    .auth-box {
+      width: 100%; max-width: 420px;
+    }
+
+    /* tabs */
+    .auth-tabs {
+      display: flex; background: white;
+      border-radius: 14px; padding: 4px;
+      margin-bottom: 2rem;
+      box-shadow: 0 2px 12px rgba(0,0,0,.06);
+    }
+    .auth-tab {
+      flex: 1; text-align: center;
+      padding: .65rem; font-weight: 700;
+      font-size: .88rem; border-radius: 10px;
+      cursor: pointer; border: none;
+      background: transparent; color: #888;
+      transition: all .25s;
+    }
+    .auth-tab.active {
+      background: var(--red); color: white;
+      box-shadow: 0 3px 12px rgba(212,32,32,.35);
+    }
+
+    /* form panels */
+    .form-panel { display: none; }
+    .form-panel.active { display: block; }
+
+    .auth-title {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 1.8rem; font-weight: 900;
+      text-transform: uppercase; color: var(--dark);
+      line-height: 1; margin-bottom: .35rem;
+    }
+    .auth-sub { font-size: .85rem; color: var(--gray); margin-bottom: 1.6rem; }
+
+    /* car context banner (shown when redirected from buy) */
+    .buy-context {
+      display: none;
+      background: linear-gradient(135deg, #111, #1a0808);
+      border-radius: 12px; padding: .85rem 1rem;
+      margin-bottom: 1.4rem;
+      align-items: center; gap: .8rem;
+    }
+    .buy-context.show { display: flex; }
+    .bc-icon { font-size: 1.5rem; flex-shrink: 0; }
+    .bc-text { font-size: .8rem; color: rgba(255,255,255,.7); line-height: 1.5; }
+    .bc-text strong { color: white; display: block; }
+
+    /* social login */
+    .social-btns { display: flex; gap: .7rem; margin-bottom: 1.3rem; }
+    .social-btn {
+      flex: 1; display: flex; align-items: center; justify-content: center; gap: .5rem;
+      background: white; border: 1.5px solid #e0e0e0;
+      border-radius: 12px; padding: .7rem .5rem;
+      font-size: .82rem; font-weight: 600; color: #333;
+      cursor: pointer; text-decoration: none;
+      transition: border-color .2s, box-shadow .2s, transform .2s;
+    }
+    .social-btn:hover { border-color: #bbb; box-shadow: 0 3px 12px rgba(0,0,0,.09); transform: translateY(-1px); }
+    .social-btn svg { width: 18px; height: 18px; flex-shrink: 0; }
+
+    /* divider */
+    .divider {
+      display: flex; align-items: center; gap: .8rem;
+      margin: 1.2rem 0;
+      font-size: .75rem; color: #bbb; font-weight: 600;
+    }
+    .divider::before, .divider::after {
+      content: ''; flex: 1; height: 1px; background: #e0e0e0;
+    }
+
+    /* form fields */
+    .field-group { margin-bottom: 1rem; }
+    .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: .8rem; margin-bottom: 1rem; }
+    .field-label {
+      display: block; font-size: .75rem; font-weight: 700;
+      color: #444; margin-bottom: .35rem; letter-spacing: .04em;
+    }
+    .field-input {
+      width: 100%; border: 1.5px solid #e0e0e0;
+      border-radius: 11px; padding: .72rem 1rem;
+      font-size: .9rem; font-family: 'Barlow', sans-serif;
+      color: var(--dark); background: white;
+      outline: none; transition: border-color .2s, box-shadow .2s;
+    }
+    .field-input:focus {
+      border-color: var(--red);
+      box-shadow: 0 0 0 3px rgba(212,32,32,.1);
+    }
+
+    /* password wrapper */
+    .pw-wrap { position: relative; }
+    .pw-wrap .field-input { padding-right: 2.8rem; }
+    .pw-toggle {
+      position: absolute; right: .9rem; top: 50%;
+      transform: translateY(-50%);
+      background: none; border: none; cursor: pointer;
+      color: #999; transition: color .2s; padding: 0;
+    }
+    .pw-toggle:hover { color: var(--red); }
+    .pw-toggle svg { width: 18px; height: 18px; }
+
+    /* forgot */
+    .forgot-row {
+      display: flex; justify-content: flex-end;
+      margin-top: -.3rem; margin-bottom: 1rem;
+    }
+    .forgot-link { font-size: .8rem; color: var(--red); font-weight: 600; text-decoration: none; }
+    .forgot-link:hover { text-decoration: underline; }
+
+    /* phone field */
+    .phone-wrap { display: flex; gap: .5rem; }
+    .country-code {
+      width: 90px; flex-shrink: 0;
+      border: 1.5px solid #e0e0e0; border-radius: 11px;
+      padding: .72rem .8rem; font-size: .88rem;
+      font-family: 'Barlow', sans-serif; color: var(--dark);
+      background: white; outline: none;
+      transition: border-color .2s, box-shadow .2s;
+      cursor: pointer;
+    }
+    .country-code:focus { border-color: var(--red); box-shadow: 0 0 0 3px rgba(212,32,32,.1); }
+
+    /* submit btn */
+    .btn-submit {
+      width: 100%; background: linear-gradient(135deg, var(--red), var(--red-dark));
+      color: white; border: none; border-radius: 50px;
+      padding: .9rem; font-weight: 800; font-size: .95rem;
+      cursor: pointer; letter-spacing: .03em;
+      display: flex; align-items: center; justify-content: center; gap: .5rem;
+      transition: all .25s;
+      box-shadow: 0 6px 20px rgba(212,32,32,.4);
+      margin-top: .5rem;
+    }
+    .btn-submit:hover { transform: translateY(-2px); box-shadow: 0 10px 28px rgba(212,32,32,.5); }
+    .btn-submit svg { width: 16px; height: 16px; fill: white; }
+
+    /* loading state */
+    .btn-submit.loading { opacity: .75; pointer-events: none; }
+    .spinner {
+      width: 16px; height: 16px; border: 2px solid rgba(255,255,255,.3);
+      border-top-color: white; border-radius: 50%;
+      animation: spin .7s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* terms */
+    .terms-row {
+      display: flex; align-items: flex-start; gap: .5rem;
+      margin-bottom: 1rem;
+    }
+    .terms-check { width: 16px; height: 16px; accent-color: var(--red); margin-top: 2px; flex-shrink: 0; cursor: pointer; }
+    .terms-text { font-size: .78rem; color: #888; line-height: 1.5; }
+    .terms-text a { color: var(--red); text-decoration: none; font-weight: 600; }
+
+    /* switch link */
+    .switch-row { text-align: center; margin-top: 1.3rem; font-size: .82rem; color: #888; }
+    .switch-row a { color: var(--red); font-weight: 700; text-decoration: none; cursor: pointer; }
+
+    /* error / success msg */
+    .field-error { font-size: .75rem; color: #dc2626; margin-top: .3rem; display: none; }
+    .field-error.show { display: block; }
+    .form-msg {
+      border-radius: 10px; padding: .75rem 1rem;
+      font-size: .84rem; font-weight: 600; margin-bottom: 1rem;
+      display: none;
+    }
+    .form-msg.error { background: #fef2f2; border: 1px solid #fecaca; color: #dc2626; display: block; }
+    .form-msg.success { background: #f0fdf4; border: 1px solid #bbf7d0; color: #16a34a; display: block; }
+
+    /* password strength */
+    .pw-strength { margin-top: .45rem; }
+    .pw-strength-bar {
+      height: 4px; border-radius: 2px; background: #e0e0e0; overflow: hidden;
+    }
+    .pw-strength-fill { height: 100%; border-radius: 2px; width: 0; transition: width .4s, background .4s; }
+    .pw-strength-label { font-size: .72rem; color: #999; margin-top: .25rem; }
+
+    /* back link */
+    .back-link {
+      display: inline-flex; align-items: center; gap: .4rem;
+      font-size: .82rem; color: #888; text-decoration: none;
+      margin-bottom: 1.5rem; transition: color .2s;
+    }
+    .back-link:hover { color: var(--red); }
+    .back-link svg { width: 14px; height: 14px; fill: currentColor; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      .page { grid-template-columns: 1fr; }
+      .left-panel { display: none; }
+      .right-panel { padding: 2rem 1.25rem; justify-content: flex-start; padding-top: 3rem; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="page">
+
+  <!-- ══ LEFT PANEL ══ -->
+  <div class="left-panel">
+    <div class="lp-grid"></div>
+    <div class="lp-glow"></div>
+    <div class="lp-glow2"></div>
+
+    <!-- floating car -->
+    <div class="lp-car-wrap">
+      <img class="lp-car"
+        src="cars/mustang-red.jpg"
+        alt="Sports car"
+        onerror="this.style.display='none'"
+      />
+    </div>
+
+    <!-- logo -->
+    <a href="index.html" class="lp-logo">
+      <div class="lp-logo-icon">
+        <svg viewBox="0 0 24 24"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm0 3l2 4h4l-3.2 2.3 1.2 4-4-2.7-4 2.7 1.2-4L6 9h4l2-4z"/></svg>
+      </div>
+      <div class="lp-logo-text">Ginyard<br><span>International Co.</span></div>
+    </a>
+
+    <!-- bottom copy -->
+    <div class="lp-bottom">
+      <div class="lp-tagline">
+        Drive Your<br>
+        <span class="red">Dream</span><br>
+        <span class="outline">Car Today</span>
+      </div>
+      <p class="lp-desc">Sign in to access your orders, track purchases, and unlock exclusive member-only deals on our UAE showroom collection.</p>
+      <div class="lp-badges">
+        <div class="lp-badge">
+          <svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/></svg>
+          Secure Login
+        </div>
+        <div class="lp-badge">
+          <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+          Member Benefits
+        </div>
+        <div class="lp-badge">
+          <svg viewBox="0 0 24 24"><path d="M17 12h-5v5h5v-5zM16 1v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2h-1V1h-2zm3 18H5V8h14v11z"/></svg>
+          Order History
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ RIGHT PANEL ══ -->
+  <div class="right-panel">
+    <div class="auth-box">
+
+      <!-- back link -->
+      <a href="catalogue.html" class="back-link">
+        <svg viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
+        Back to Catalogue
+      </a>
+
+      <!-- car context banner (shown when coming from Buy Now) -->
+      <div class="buy-context" id="buyContext">
+        <div class="bc-icon">🚗</div>
+        <div class="bc-text">
+          <strong id="ctxCarName">Mercedes-Benz G 63 AMG</strong>
+          Sign in to complete your purchase request
+        </div>
+      </div>
+
+      <!-- tabs -->
+      <div class="auth-tabs">
+        <button class="auth-tab active" id="loginTab" onclick="switchTab('login')">Sign In</button>
+        <button class="auth-tab" id="signupTab" onclick="switchTab('signup')">Create Account</button>
+      </div>
+
+      <!-- ── LOGIN FORM ── -->
+      <div class="form-panel active" id="loginPanel">
+        <h1 class="auth-title">Welcome Back</h1>
+        <p class="auth-sub">Sign in to your Ginyard account</p>
+
+        <div class="form-msg" id="loginMsg"></div>
+
+        <!-- social -->
+        <div class="social-btns">
+          <a href="#" class="social-btn" onclick="socialLogin('Google')">
+            <svg viewBox="0 0 24 24"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
+            Google
+          </a>
+          <a href="#" class="social-btn" onclick="socialLogin('Apple')">
+            <svg viewBox="0 0 24 24" fill="#000"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+            Apple
+          </a>
+        </div>
+
+        <div class="divider">or sign in with email</div>
+
+        <div class="field-group">
+          <label class="field-label">Email Address</label>
+          <input class="field-input" type="email" id="loginEmail" placeholder="you@email.com" autocomplete="email" />
+          <div class="field-error" id="loginEmailErr">Please enter a valid email.</div>
+        </div>
+
+        <div class="field-group">
+          <label class="field-label">Password</label>
+          <div class="pw-wrap">
+            <input class="field-input" type="password" id="loginPw" placeholder="••••••••" autocomplete="current-password" />
+            <button class="pw-toggle" onclick="togglePw('loginPw', this)" tabindex="-1">
+              <svg id="eyeLogin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+            </button>
+          </div>
+          <div class="field-error" id="loginPwErr">Password is required.</div>
+        </div>
+
+        <div class="forgot-row">
+          <a href="#" class="forgot-link">Forgot password?</a>
+        </div>
+
+        <button class="btn-submit" id="loginBtn" onclick="handleLogin()">
+          <svg viewBox="0 0 24 24"><path d="M11 7L9.6 8.4l2.6 2.6H2v2h10.2l-2.6 2.6L11 17l5-5-5-5zm9 12h-8v2h8c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2h-8v2h8v14z"/></svg>
+          Sign In
+        </button>
+
+        <div class="switch-row">
+          Don't have an account? <a onclick="switchTab('signup')">Create one →</a>
+        </div>
+      </div>
+
+      <!-- ── SIGNUP FORM ── -->
+      <div class="form-panel" id="signupPanel">
+        <h1 class="auth-title">Create Account</h1>
+        <p class="auth-sub">Join Ginyard to start your journey</p>
+
+        <div class="form-msg" id="signupMsg"></div>
+
+        <!-- social -->
+        <div class="social-btns">
+          <a href="#" class="social-btn" onclick="socialLogin('Google')">
+            <svg viewBox="0 0 24 24"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
+            Google
+          </a>
+          <a href="#" class="social-btn" onclick="socialLogin('Apple')">
+            <svg viewBox="0 0 24 24" fill="#000"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+            Apple
+          </a>
+        </div>
+
+        <div class="divider">or sign up with email</div>
+
+        <div class="field-row">
+          <div class="field-group" style="margin:0">
+            <label class="field-label">First Name *</label>
+            <input class="field-input" type="text" id="suFname" placeholder="Ahmad" autocomplete="given-name" />
+          </div>
+          <div class="field-group" style="margin:0">
+            <label class="field-label">Last Name *</label>
+            <input class="field-input" type="text" id="suLname" placeholder="Al-Rashid" autocomplete="family-name" />
+          </div>
+        </div>
+
+        <div class="field-group" style="margin-top:.9rem">
+          <label class="field-label">Email Address *</label>
+          <input class="field-input" type="email" id="suEmail" placeholder="you@email.com" autocomplete="email" />
+          <div class="field-error" id="suEmailErr">Please enter a valid email.</div>
+        </div>
+
+        <div class="field-group">
+          <label class="field-label">Phone / WhatsApp *</label>
+          <div class="phone-wrap">
+            <select class="country-code" id="suCountry">
+              <option value="+971">🇦🇪 +971</option>
+              <option value="+966">🇸🇦 +966</option>
+              <option value="+962">🇯🇴 +962</option>
+              <option value="+965">🇰🇼 +965</option>
+              <option value="+974">🇶🇦 +974</option>
+              <option value="+973">🇧🇭 +973</option>
+              <option value="+968">🇴🇲 +968</option>
+              <option value="+1">🇺🇸 +1</option>
+              <option value="+44">🇬🇧 +44</option>
+            </select>
+            <input class="field-input" type="tel" id="suPhone" placeholder="50 000 0000" style="flex:1" />
+          </div>
+        </div>
+
+        <div class="field-group">
+          <label class="field-label">Password *</label>
+          <div class="pw-wrap">
+            <input class="field-input" type="password" id="suPw" placeholder="Min. 8 characters" autocomplete="new-password" oninput="checkStrength(this.value)" />
+            <button class="pw-toggle" onclick="togglePw('suPw', this)" tabindex="-1">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+            </button>
+          </div>
+          <div class="pw-strength">
+            <div class="pw-strength-bar"><div class="pw-strength-fill" id="pwFill"></div></div>
+            <div class="pw-strength-label" id="pwLabel">Enter a password</div>
+          </div>
+        </div>
+
+        <div class="terms-row">
+          <input type="checkbox" class="terms-check" id="termsCheck" />
+          <label for="termsCheck" class="terms-text">
+            I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a> of Ginyard International Co.
+          </label>
+        </div>
+
+        <button class="btn-submit" id="signupBtn" onclick="handleSignup()">
+          <svg viewBox="0 0 24 24"><path d="M15 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm-9-2V7H4v3H1v2h3v3h2v-3h3v-2H6zm9 4c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+          Create Account
+        </button>
+
+        <div class="switch-row">
+          Already have an account? <a onclick="switchTab('login')">Sign in →</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script src="index.js">
+
+</script>
+</body>
+</html>

@@ -1,0 +1,1044 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Catalogue — Ginyard International Co.</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --red: #d42020;
+      --red-dark: #a01515;
+      --red-light: #ff4444;
+      --bg: #f0f0f2;
+      --white: #ffffff;
+      --dark: #111111;
+      --gray: #666666;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Barlow', sans-serif; background: var(--bg); color: var(--dark); overflow-x: hidden; }
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: #e0e0e0; }
+    ::-webkit-scrollbar-thumb { background: var(--red); border-radius: 3px; }
+
+    /* ══ NAVBAR ══ */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(240,240,242,0.92); backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(212,32,32,.08);
+      transition: box-shadow .3s;
+    }
+    nav.scrolled { box-shadow: 0 4px 30px rgba(0,0,0,.12); }
+    .nav-inner {
+      max-width: 1280px; margin: 0 auto;
+      padding: 0 1.5rem; height: 68px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .logo { display: flex; align-items: center; gap: .55rem; text-decoration: none; }
+    .logo-icon { width: 34px; height: 34px; background: var(--red); border-radius: 8px; display: grid; place-items: center; }
+    .logo-icon svg { width: 20px; height: 20px; fill: white; }
+    .logo-text { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 1.05rem; color: var(--dark); letter-spacing: .02em; line-height: 1.2; }
+    .logo-text span { color: var(--red); }
+    .nav-links { display: flex; align-items: center; gap: 2.2rem; list-style: none; }
+    .nav-links a { font-size: .92rem; font-weight: 500; color: #444; text-decoration: none; position: relative; transition: color .25s; }
+    .nav-links a::after { content: ''; position: absolute; left: 0; bottom: -3px; width: 0; height: 2px; background: var(--red); border-radius: 1px; transition: width .3s; }
+    .nav-links a:hover { color: var(--red); }
+    .nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
+    .nav-links a.active { color: var(--red); font-weight: 600; }
+    .btn-login { background: var(--red) !important; color: white !important; padding: .5rem 1.4rem; border-radius: 50px; font-weight: 600 !important; font-size: .88rem !important; box-shadow: 0 4px 15px rgba(212,32,32,.35); transition: background .25s, transform .2s !important; }
+    .btn-login:hover { background: var(--red-dark) !important; transform: translateY(-1px) !important; }
+    .btn-login::after { display: none !important; }
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; border: none; background: transparent; }
+    .hamburger span { display: block; width: 26px; height: 2px; background: var(--dark); border-radius: 2px; transition: transform .35s, opacity .25s, width .3s; }
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; width: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+    .mobile-menu { display: none; position: fixed; top: 68px; left: 0; right: 0; background: rgba(240,240,242,.97); backdrop-filter: blur(16px); padding: 1.5rem; flex-direction: column; gap: 0; z-index: 99; transform: translateY(-10px); opacity: 0; transition: transform .35s ease, opacity .35s ease; border-bottom: 2px solid var(--red); }
+    .mobile-menu.visible { display: flex; transform: translateY(0); opacity: 1; }
+    .mobile-menu a { font-size: 1.1rem; font-weight: 500; color: var(--dark); text-decoration: none; padding: .85rem 0; border-bottom: 1px solid rgba(0,0,0,.07); display: flex; align-items: center; gap: .6rem; transition: color .2s, padding-left .2s; }
+    .mobile-menu a:hover { color: var(--red); padding-left: .4rem; }
+    .mobile-menu a.active { color: var(--red); font-weight: 600; }
+    .mobile-menu .m-login { margin-top: 1rem; background: var(--red); color: white !important; justify-content: center; border-radius: 50px; border-bottom: none; padding: .85rem; font-weight: 700 !important; box-shadow: 0 4px 15px rgba(212,32,32,.35); }
+
+    /* ══ PAGE HEADER ══ */
+    .page-header {
+      padding-top: 68px;
+      background: linear-gradient(135deg, #0d0d0d 0%, #1a0808 60%, #0d0d0d 100%);
+      position: relative; overflow: hidden;
+    }
+    .ph-grid { position: absolute; inset: 0; background-image: linear-gradient(rgba(212,32,32,.06) 1px, transparent 1px), linear-gradient(90deg, rgba(212,32,32,.06) 1px, transparent 1px); background-size: 50px 50px; }
+    .ph-glow { position: absolute; top: -80px; right: -80px; width: 480px; height: 480px; border-radius: 50%; background: radial-gradient(circle, rgba(212,32,32,.25) 0%, transparent 70%); }
+    .ph-glow2 { position: absolute; bottom: -60px; left: -60px; width: 300px; height: 300px; border-radius: 50%; background: radial-gradient(circle, rgba(212,32,32,.12) 0%, transparent 70%); }
+    .ph-inner { max-width: 1280px; margin: 0 auto; padding: 4.5rem 1.5rem 3.5rem; position: relative; z-index: 2; }
+    .ph-eyebrow { display: inline-flex; align-items: center; gap: .5rem; background: rgba(212,32,32,.15); border: 1px solid rgba(212,32,32,.3); border-radius: 50px; padding: .3rem .9rem; font-size: .75rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: #ff7070; margin-bottom: 1rem; opacity: 0; animation: fadeUp .6s .1s forwards; }
+    .ph-title { font-family: 'Barlow Condensed', sans-serif; font-size: clamp(2.8rem, 6vw, 5.5rem); font-weight: 900; text-transform: uppercase; color: white; line-height: .95; opacity: 0; animation: fadeUp .7s .2s forwards; }
+    .ph-title .outline { -webkit-text-stroke: 2px rgba(255,255,255,.35); color: transparent; }
+    .ph-sub { font-size: .95rem; color: rgba(255,255,255,.5); margin-top: .9rem; max-width: 420px; line-height: 1.7; opacity: 0; animation: fadeUp .7s .35s forwards; }
+    .breadcrumb { display: flex; align-items: center; gap: .5rem; margin-top: 1.8rem; opacity: 0; animation: fadeUp .6s .5s forwards; }
+    .breadcrumb a, .breadcrumb span { font-size: .82rem; text-decoration: none; color: rgba(255,255,255,.4); transition: color .2s; }
+    .breadcrumb a:hover { color: var(--red-light); }
+    .breadcrumb .sep { color: rgba(255,255,255,.2); }
+    .breadcrumb .current { color: var(--red-light); font-weight: 600; }
+
+    /* ══ FILTER BAR ══ */
+    .filter-bar {
+      background: white;
+      border-bottom: 1px solid rgba(0,0,0,.06);
+      position: sticky; top: 68px; z-index: 50;
+      box-shadow: 0 2px 20px rgba(0,0,0,.06);
+    }
+    .filter-inner {
+      max-width: 1280px; margin: 0 auto;
+      padding: 0 1.5rem;
+      display: flex; align-items: center;
+      gap: .6rem; overflow-x: auto;
+      scrollbar-width: none; height: 58px;
+    }
+    .filter-inner::-webkit-scrollbar { display: none; }
+    .filter-btn {
+      flex-shrink: 0;
+      padding: .45rem 1.1rem;
+      border-radius: 50px;
+      font-size: .82rem; font-weight: 600;
+      cursor: pointer; border: 2px solid #e0e0e0;
+      background: transparent; color: #666;
+      transition: all .2s; white-space: nowrap;
+    }
+    .filter-btn:hover { border-color: var(--red); color: var(--red); }
+    .filter-btn.active { background: var(--red); border-color: var(--red); color: white; box-shadow: 0 3px 12px rgba(212,32,32,.35); }
+    .filter-count { font-size: .72rem; opacity: .7; margin-left: .3rem; }
+
+    /* ══ CATALOGUE GRID ══ */
+    .catalogue-section { padding: 3rem 0 5rem; }
+    .container { max-width: 1280px; margin: 0 auto; padding: 0 1.5rem; }
+
+    .results-info { display: flex; align-items: center; justify-content: space-between; margin-bottom: 2rem; flex-wrap: wrap; gap: 1rem; }
+    .results-count { font-size: .88rem; color: var(--gray); }
+    .results-count strong { color: var(--dark); font-weight: 700; }
+
+    .cars-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.8rem;
+    }
+
+    /* ══ CAR CARD ══ */
+    .car-card {
+      background: white;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 4px 20px rgba(0,0,0,.07);
+      transition: transform .35s ease, box-shadow .35s ease;
+      display: flex; flex-direction: column;
+      cursor: pointer;
+    }
+    .car-card:hover { transform: translateY(-8px); box-shadow: 0 20px 50px rgba(0,0,0,.14); }
+    .car-card.hidden { display: none; }
+
+    /* image wrapper */
+    .car-img-wrap {
+      position: relative;
+      height: 220px;
+      overflow: hidden;
+      background: #1a1a1a;
+    }
+    .car-img-wrap img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transition: transform .5s ease;
+    }
+    .car-card:hover .car-img-wrap img { transform: scale(1.06); }
+
+    /* badges */
+    .car-badge {
+      position: absolute; top: 1rem; left: 1rem;
+      background: var(--red); color: white;
+      font-size: .7rem; font-weight: 700;
+      letter-spacing: .08em; text-transform: uppercase;
+      padding: .28rem .7rem; border-radius: 50px;
+    }
+    .car-badge.luxury { background: #c9a227; }
+    .car-badge.suv     { background: #2563eb; }
+    .car-badge.sedan   { background: #059669; }
+
+    .car-available {
+      position: absolute; top: 1rem; right: 1rem;
+      background: rgba(0,0,0,.6); backdrop-filter: blur(6px);
+      color: #4ade80; border-radius: 50px;
+      font-size: .7rem; font-weight: 700;
+      padding: .28rem .75rem;
+      display: flex; align-items: center; gap: .35rem;
+    }
+    .car-available::before {
+      content: ''; width: 6px; height: 6px;
+      background: #4ade80; border-radius: 50%;
+      animation: pulse 1.5s infinite;
+    }
+    @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.6;transform:scale(1.4)} }
+
+    /* body */
+    .car-body { padding: 1.4rem; flex: 1; display: flex; flex-direction: column; }
+    .car-make { font-size: .75rem; font-weight: 700; color: var(--red); letter-spacing: .1em; text-transform: uppercase; margin-bottom: .2rem; }
+    .car-name { font-family: 'Barlow Condensed', sans-serif; font-size: 1.5rem; font-weight: 900; text-transform: uppercase; color: var(--dark); line-height: 1; margin-bottom: .7rem; }
+    .car-desc { font-size: .85rem; color: var(--gray); line-height: 1.65; margin-bottom: 1rem; flex: 1; }
+
+    /* specs mini */
+    .car-specs { display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 1.2rem; }
+    .spec-chip {
+      display: flex; align-items: center; gap: .35rem;
+      background: var(--bg); border-radius: 8px;
+      padding: .3rem .7rem; font-size: .75rem; font-weight: 600; color: #555;
+    }
+    .spec-chip svg { width: 12px; height: 12px; fill: var(--red); flex-shrink: 0; }
+
+    /* pros/cons */
+    .pros-cons { display: grid; grid-template-columns: 1fr 1fr; gap: .6rem; margin-bottom: 1.3rem; }
+    .pc-block { background: var(--bg); border-radius: 10px; padding: .7rem; }
+    .pc-title { font-size: .68rem; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; margin-bottom: .4rem; }
+    .pc-title.pros { color: #16a34a; }
+    .pc-title.cons { color: #dc2626; }
+    .pc-list { list-style: none; }
+    .pc-list li { font-size: .75rem; color: #555; padding: .12rem 0; display: flex; align-items: flex-start; gap: .3rem; line-height: 1.4; }
+    .pc-list li::before { content: ''; display: block; width: 5px; height: 5px; border-radius: 50%; margin-top: 5px; flex-shrink: 0; }
+    .pros .pc-list li::before { background: #16a34a; }
+    .cons .pc-list li::before { background: #dc2626; }
+
+    /* price strip */
+    .car-price-strip {
+      display: flex; align-items: center; justify-content: space-between;
+      background: linear-gradient(135deg, #111 0%, #1a0808 100%);
+      border-radius: 12px; padding: .65rem 1rem;
+      margin-bottom: 1.1rem;
+    }
+    .price-label { font-size: .68rem; font-weight: 700; color: rgba(255,255,255,.45); text-transform: uppercase; letter-spacing: .1em; }
+    .price-value {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 1.35rem; font-weight: 900; color: white; line-height: 1;
+    }
+    .price-value span { color: var(--red-light); font-size: .75rem; font-weight: 600; margin-left: .2rem; }
+
+    /* CTA row */
+    .car-cta { display: flex; gap: .7rem; }
+
+    /* buy now btn */
+    .btn-buy {
+      flex: 1.2; background: linear-gradient(135deg, var(--red), var(--red-dark));
+      color: white; border: none; border-radius: 50px;
+      padding: .65rem 1rem; font-weight: 800; font-size: .84rem;
+      cursor: pointer; text-decoration: none;
+      display: flex; align-items: center; justify-content: center; gap: .4rem;
+      transition: all .25s;
+      box-shadow: 0 4px 18px rgba(212,32,32,.45);
+      letter-spacing: .02em;
+    }
+    .btn-buy:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(212,32,32,.55); filter: brightness(1.1); }
+    .btn-buy svg { width: 14px; height: 14px; fill: white; }
+
+    /* ══ PURCHASE POPUP ══ */
+    .buy-overlay {
+      position: fixed; inset: 0; z-index: 300;
+      background: rgba(0,0,0,.8); backdrop-filter: blur(10px);
+      display: flex; align-items: center; justify-content: center;
+      padding: 1rem;
+      opacity: 0; pointer-events: none;
+      transition: opacity .3s;
+    }
+    .buy-overlay.open { opacity: 1; pointer-events: all; }
+
+    .buy-modal {
+      background: white; border-radius: 24px;
+      max-width: 520px; width: 100%;
+      max-height: 92vh; overflow-y: auto;
+      transform: scale(.94) translateY(20px);
+      transition: transform .38s cubic-bezier(.34,1.56,.64,1);
+      position: relative;
+    }
+    .buy-overlay.open .buy-modal { transform: scale(1) translateY(0); }
+
+    .buy-modal-header {
+      background: linear-gradient(135deg, #111, #1a0808);
+      border-radius: 24px 24px 0 0;
+      padding: 1.8rem;
+      position: relative;
+    }
+    .buy-modal-car-name {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 1.8rem; font-weight: 900; color: white;
+      text-transform: uppercase; line-height: 1;
+    }
+    .buy-modal-car-make { font-size: .8rem; color: var(--red-light); font-weight: 700; letter-spacing: .1em; text-transform: uppercase; margin-bottom: .4rem; }
+    .buy-modal-price-row { display: flex; align-items: baseline; gap: .5rem; margin-top: .8rem; }
+    .buy-modal-price { font-family: 'Barlow Condensed', sans-serif; font-size: 2rem; font-weight: 900; color: var(--red-light); }
+    .buy-modal-price-note { font-size: .78rem; color: rgba(255,255,255,.45); }
+    .buy-close {
+      position: absolute; top: 1rem; right: 1rem;
+      width: 32px; height: 32px; border-radius: 50%;
+      background: rgba(255,255,255,.12); border: none; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: background .2s;
+    }
+    .buy-close:hover { background: rgba(255,255,255,.25); }
+    .buy-close svg { width: 14px; height: 14px; fill: white; }
+
+    .buy-modal-body { padding: 1.6rem; }
+    .buy-form-title { font-size: .82rem; font-weight: 700; color: var(--dark); margin-bottom: 1.2rem; display: flex; align-items: center; gap: .5rem; }
+    .buy-form-title::before { content: ''; display: block; width: 3px; height: 16px; background: var(--red); border-radius: 2px; }
+
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: .9rem; margin-bottom: .9rem; }
+    .form-row.single { grid-template-columns: 1fr; }
+    .form-group { display: flex; flex-direction: column; gap: .35rem; }
+    .form-label { font-size: .75rem; font-weight: 700; color: #444; letter-spacing: .04em; }
+    .form-input, .form-select, .form-textarea {
+      border: 1.5px solid #e0e0e0; border-radius: 10px;
+      padding: .65rem .9rem; font-size: .88rem;
+      font-family: 'Barlow', sans-serif; color: var(--dark);
+      background: var(--bg); transition: border-color .2s, box-shadow .2s;
+      outline: none;
+    }
+    .form-input:focus, .form-select:focus, .form-textarea:focus {
+      border-color: var(--red); box-shadow: 0 0 0 3px rgba(212,32,32,.12);
+    }
+    .form-textarea { resize: vertical; min-height: 80px; }
+
+    .buy-divider { height: 1px; background: #f0f0f0; margin: 1.2rem 0; }
+
+    .buy-summary {
+      background: var(--bg); border-radius: 14px;
+      padding: 1rem; margin-bottom: 1.4rem;
+    }
+    .buy-summary-title { font-size: .72rem; font-weight: 800; text-transform: uppercase; letter-spacing: .1em; color: #888; margin-bottom: .7rem; }
+    .buy-summary-row { display: flex; justify-content: space-between; font-size: .85rem; padding: .2rem 0; }
+    .buy-summary-row span:first-child { color: var(--gray); }
+    .buy-summary-row span:last-child { font-weight: 700; color: var(--dark); }
+    .buy-summary-total { border-top: 1px solid #ddd; margin-top: .5rem; padding-top: .5rem; }
+    .buy-summary-total span:first-child { font-weight: 700; color: var(--dark); }
+    .buy-summary-total span:last-child { font-family: 'Barlow Condensed', sans-serif; font-size: 1.2rem; font-weight: 900; color: var(--red); }
+
+    .btn-submit-buy {
+      width: 100%; background: linear-gradient(135deg, var(--red), var(--red-dark));
+      color: white; border: none; border-radius: 50px;
+      padding: 1rem; font-weight: 800; font-size: .95rem;
+      cursor: pointer; letter-spacing: .03em;
+      display: flex; align-items: center; justify-content: center; gap: .6rem;
+      transition: all .25s; box-shadow: 0 6px 20px rgba(212,32,32,.4);
+    }
+    .btn-submit-buy:hover { transform: translateY(-2px); box-shadow: 0 10px 28px rgba(212,32,32,.5); }
+    .buy-note { font-size: .75rem; color: #aaa; text-align: center; margin-top: .8rem; line-height: 1.5; }
+
+    /* success state */
+    .buy-success { display: none; text-align: center; padding: 2.5rem 1.5rem; }
+    .buy-success.visible { display: block; }
+    .buy-success-icon { font-size: 3.5rem; margin-bottom: 1rem; }
+    .buy-success h3 { font-family: 'Barlow Condensed', sans-serif; font-size: 1.8rem; font-weight: 900; text-transform: uppercase; color: var(--dark); }
+    .buy-success p { color: var(--gray); font-size: .9rem; margin-top: .5rem; line-height: 1.6; }
+    .buy-success .back-btn { display: inline-block; margin-top: 1.5rem; background: var(--bg); border: 2px solid #ddd; border-radius: 50px; padding: .6rem 1.6rem; font-weight: 700; font-size: .88rem; cursor: pointer; transition: border-color .2s; }
+    .buy-success .back-btn:hover { border-color: var(--red); color: var(--red); }
+
+    @media (max-width: 480px) { .form-row { grid-template-columns: 1fr; } }
+    .btn-contact {
+      flex: 1; background: var(--red); color: white;
+      border: none; border-radius: 50px;
+      padding: .65rem 1rem; font-weight: 700; font-size: .82rem;
+      cursor: pointer; text-decoration: none;
+      display: flex; align-items: center; justify-content: center; gap: .4rem;
+      transition: background .2s, transform .2s;
+      box-shadow: 0 4px 14px rgba(212,32,32,.35);
+    }
+    .btn-contact:hover { background: var(--red-dark); transform: translateY(-1px); }
+    .btn-contact svg { width: 14px; height: 14px; fill: white; }
+    .btn-whatsapp {
+      background: #25d366; color: white;
+      border: none; border-radius: 50px;
+      padding: .65rem .9rem; font-weight: 700; font-size: .82rem;
+      cursor: pointer; text-decoration: none;
+      display: flex; align-items: center; justify-content: center; gap: .4rem;
+      transition: background .2s, transform .2s;
+      box-shadow: 0 4px 14px rgba(37,211,102,.35);
+    }
+    .btn-whatsapp:hover { background: #1aab52; transform: translateY(-1px); }
+    .btn-whatsapp svg { width: 16px; height: 16px; fill: white; }
+
+    /* ══ MODAL ══ */
+    .modal-overlay {
+      position: fixed; inset: 0; z-index: 200;
+      background: rgba(0,0,0,.75); backdrop-filter: blur(8px);
+      display: flex; align-items: center; justify-content: center;
+      padding: 1rem;
+      opacity: 0; pointer-events: none;
+      transition: opacity .3s;
+    }
+    .modal-overlay.open { opacity: 1; pointer-events: all; }
+    .modal {
+      background: white; border-radius: 24px;
+      max-width: 700px; width: 100%;
+      max-height: 90vh; overflow-y: auto;
+      transform: scale(.96) translateY(16px);
+      transition: transform .35s ease;
+      scrollbar-width: thin;
+    }
+    .modal-overlay.open .modal { transform: scale(1) translateY(0); }
+    .modal-img { width: 100%; height: 280px; object-fit: cover; border-radius: 24px 24px 0 0; }
+    .modal-body { padding: 1.8rem; }
+    .modal-make { font-size: .8rem; font-weight: 700; color: var(--red); letter-spacing: .1em; text-transform: uppercase; }
+    .modal-name { font-family: 'Barlow Condensed', sans-serif; font-size: 2.2rem; font-weight: 900; text-transform: uppercase; color: var(--dark); line-height: 1; margin-bottom: 1rem; }
+    .modal-desc { font-size: .92rem; color: var(--gray); line-height: 1.75; margin-bottom: 1.4rem; }
+    .modal-specs { display: flex; gap: .8rem; flex-wrap: wrap; margin-bottom: 1.4rem; }
+    .modal-spec { display: flex; align-items: center; gap: .4rem; background: var(--bg); border-radius: 10px; padding: .4rem .9rem; font-size: .8rem; font-weight: 600; color: #444; }
+    .modal-spec svg { width: 14px; height: 14px; fill: var(--red); }
+    .modal-pros-cons { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.6rem; }
+    .modal-pc { background: var(--bg); border-radius: 12px; padding: 1rem; }
+    .modal-pc-title { font-size: .75rem; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; margin-bottom: .6rem; }
+    .modal-pc-title.pros { color: #16a34a; }
+    .modal-pc-title.cons { color: #dc2626; }
+    .modal-pc ul { list-style: none; }
+    .modal-pc ul li { font-size: .85rem; color: #555; padding: .2rem 0; display: flex; align-items: flex-start; gap: .4rem; line-height: 1.5; }
+    .modal-pc ul li::before { content: ''; display: block; width: 6px; height: 6px; border-radius: 50%; margin-top: 6px; flex-shrink: 0; }
+    .modal-pc.pros ul li::before { background: #16a34a; }
+    .modal-pc.cons ul li::before { background: #dc2626; }
+    .modal-cta { display: flex; gap: .8rem; }
+    .modal-btn-contact { flex: 1; background: var(--red); color: white; border: none; border-radius: 50px; padding: .9rem; font-weight: 700; font-size: .9rem; cursor: pointer; text-decoration: none; display: flex; align-items: center; justify-content: center; gap: .5rem; transition: background .2s; box-shadow: 0 4px 14px rgba(212,32,32,.35); }
+    .modal-btn-contact:hover { background: var(--red-dark); }
+    .modal-btn-wa { background: #25d366; color: white; border: none; border-radius: 50px; padding: .9rem 1.2rem; font-weight: 700; font-size: .9rem; cursor: pointer; text-decoration: none; display: flex; align-items: center; justify-content: center; gap: .5rem; transition: background .2s; box-shadow: 0 4px 14px rgba(37,211,102,.35); }
+    .modal-btn-wa:hover { background: #1aab52; }
+    .modal-close { position: absolute; top: 1rem; right: 1rem; width: 36px; height: 36px; background: rgba(0,0,0,.5); border: none; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background .2s; }
+    .modal-close:hover { background: rgba(0,0,0,.8); }
+    .modal-close svg { width: 16px; height: 16px; fill: white; }
+    .modal-img-wrap { position: relative; }
+
+    /* ══ EMPTY STATE ══ */
+    .empty-state { text-align: center; padding: 5rem 1rem; display: none; }
+    .empty-state.visible { display: block; }
+    .empty-state h3 { font-family: 'Barlow Condensed', sans-serif; font-size: 1.8rem; font-weight: 900; text-transform: uppercase; color: var(--dark); margin-bottom: .5rem; }
+    .empty-state p { color: var(--gray); font-size: .92rem; }
+
+    /* ══ CTA BOTTOM ══ */
+    .cta-bottom { background: var(--dark); padding: 4rem 0; text-align: center; position: relative; overflow: hidden; }
+    .cta-bottom::before { content: 'GINYARD'; position: absolute; font-family: 'Barlow Condensed', sans-serif; font-size: 10rem; font-weight: 900; color: rgba(255,255,255,.04); white-space: nowrap; top: 50%; left: 50%; transform: translate(-50%,-50%); pointer-events: none; }
+    .cta-bottom h2 { font-family: 'Barlow Condensed', sans-serif; font-size: clamp(1.8rem, 3.5vw, 2.8rem); font-weight: 900; color: white; text-transform: uppercase; position: relative; z-index: 1; }
+    .cta-bottom h2 span { color: var(--red-light); }
+    .cta-bottom p { color: rgba(255,255,255,.55); margin-top: .7rem; font-size: .92rem; position: relative; z-index: 1; }
+    .cta-actions { display: flex; gap: 1rem; justify-content: center; margin-top: 2rem; flex-wrap: wrap; position: relative; z-index: 1; }
+    .cta-wa { display: inline-flex; align-items: center; gap: .5rem; background: #25d366; color: white; padding: .85rem 2rem; border-radius: 50px; font-weight: 700; font-size: .92rem; text-decoration: none; box-shadow: 0 6px 20px rgba(37,211,102,.4); transition: transform .2s, box-shadow .2s; }
+    .cta-wa:hover { transform: translateY(-3px); box-shadow: 0 12px 30px rgba(37,211,102,.5); }
+    .cta-wa svg { width: 18px; height: 18px; fill: white; }
+    .cta-call { display: inline-flex; align-items: center; gap: .5rem; background: transparent; color: white; padding: .83rem 2rem; border-radius: 50px; font-weight: 700; font-size: .92rem; text-decoration: none; border: 2px solid rgba(255,255,255,.2); transition: border-color .2s, transform .2s; }
+    .cta-call:hover { border-color: white; transform: translateY(-3px); }
+
+    footer { background: #080808; color: rgba(255,255,255,.35); padding: 1.8rem 0; text-align: center; font-size: .8rem; }
+    footer span { color: var(--red); }
+
+    /* ══ ANIMATIONS ══ */
+    @keyframes fadeUp { from{opacity:0;transform:translateY(24px)} to{opacity:1;transform:translateY(0)} }
+    .reveal { opacity: 0; transform: translateY(28px); transition: opacity .65s ease, transform .65s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-delay-1 { transition-delay: .08s; }
+    .reveal-delay-2 { transition-delay: .16s; }
+    .reveal-delay-3 { transition-delay: .24s; }
+    .reveal-delay-4 { transition-delay: .32s; }
+    .reveal-delay-5 { transition-delay: .40s; }
+    .reveal-delay-6 { transition-delay: .48s; }
+
+    /* ══ RESPONSIVE ══ */
+    @media (max-width: 1024px) { .cars-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+      .cars-grid { grid-template-columns: 1fr; }
+      .modal-pros-cons { grid-template-columns: 1fr; }
+      .pros-cons { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 480px) {
+      .modal-cta { flex-direction: column; }
+      .car-cta { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ══ NAVBAR ══ -->
+  <nav id="navbar">
+    <div class="nav-inner">
+      <a href="index.html" class="logo">
+        <div class="logo-icon"><svg viewBox="0 0 24 24"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm0 3l2 4h4l-3.2 2.3 1.2 4-4-2.7-4 2.7 1.2-4L6 9h4l2-4z"/></svg></div>
+        <div class="logo-text">Ginyard<br><span>International Co.</span></div>
+      </a>
+      <ul class="nav-links">
+        <li><a href="../index (1).html">Home</a></li>
+        <li><a href="../About/about.html">About</a></li>
+        <li><a href="catalogue (1).html" class="active">Catalogue</a></li>
+        <li><a href="#">Contact</a></li>
+        <li><a href="../Log in/login.html" class="btn-login">Log in</a></li>
+      </ul>
+      <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+    </div>
+  </nav>
+
+  <!-- Mobile Menu -->
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="index.html"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>Home</a>
+    <a href="../About/about.html"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.1 2 5 5.1 5 9c0 5.2 7 13 7 13s7-7.8 7-13c0-3.9-3.1-7-7-7z"/></svg>About</a>
+    <a href="catalogue (1).html" class="active"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M4 6h16v2H4zm0 5h16v2H4zm0 5h16v2H4z"/></svg>Catalogue</a>
+    <a href="#"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>Contact</a>
+    <a href="../Log in/login.html" class="m-login">Log in →</a>
+  </div>
+
+  <!-- ══ PAGE HEADER ══ -->
+  <header class="page-header">
+    <div class="ph-grid"></div>
+    <div class="ph-glow"></div>
+    <div class="ph-glow2"></div>
+    <div class="ph-inner">
+      <div class="ph-eyebrow">🚗 10 Vehicles Available</div>
+      <h1 class="ph-title">Our<br><span class="outline">Catalogue</span></h1>
+      <p class="ph-sub">Exclusively curated collection — each vehicle available for all. Contact us to make it yours.</p>
+      <nav class="breadcrumb">
+        <a href="index.html">Home</a>
+        <span class="sep">›</span>
+        <span class="current">Catalogue</span>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ══ FILTER BAR ══ -->
+  <div class="filter-bar">
+    <div class="filter-inner">
+      <button class="filter-btn active" data-filter="all">All <span class="filter-count">(10)</span></button>
+      <button class="filter-btn" data-filter="sports">Sports</button>
+      <button class="filter-btn" data-filter="suv">SUV</button>
+      <button class="filter-btn" data-filter="luxury">Luxury</button>
+      <button class="filter-btn" data-filter="sedan">Sedan</button>
+      <button class="filter-btn" data-filter="limousine">Limousine</button>
+    </div>
+  </div>
+
+  <!-- ══ CATALOGUE GRID ══ -->
+  <section class="catalogue-section">
+    <div class="container">
+
+      <div class="results-info">
+        <p class="results-count">Showing <strong id="resultCount">10</strong> vehicles</p>
+      </div>
+
+      <div class="cars-grid" id="carsGrid">
+
+        <!-- 1. Mercedes G63 AMG -->
+        <div class="car-card reveal" data-category="suv luxury" data-id="0">
+          <div class="car-img-wrap">
+            <img src="../img/mercedes-g63 (1).jpg" alt="Mercedes G63 AMG" loading="lazy" />
+            <span class="car-badge suv">SUV</span>
+            <span class="car-available">Available</span>
+          </div>
+          <div class="car-body">
+            <div class="car-make">Mercedes-Benz</div>
+            <div class="car-name">G 63 AMG</div>
+            <p class="car-desc">The legendary G-Wagen refined into a supercar-powered beast. 577hp V8 biturbo inside an iconic boxy body — commanding the streets of Dubai.</p>
+            <div class="car-specs">
+              <div class="spec-chip"><svg viewBox="0 0 24 24"><path d="M13 2.05V4.1c3.95.49 7 3.85 7 7.9s-3.05 7.41-7 7.9v2.05c5.06-.5 9-4.76 9-9.95s-3.94-9.45-9-9.95z"/></svg>577 hp</div>
+              <div class="spec-chip"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17.93V18h-2v1.93C7.06 19.44 4.56 16.94 4.07 14H6v-2H4.07C4.56 9.06 7.06 6.56 10 6.07V8h2V6.07c2.94.49 5.44 2.99 5.93 5.93H16v2h1.93c-.49 2.94-2.99 5.44-5.93 5.93z"/></svg>V8 Biturbo</div>
+              <div class="spec-chip"><svg viewBox="0 0 24 24"><path d="M11 9H9V2H7v7H5V2H3v7c0 2.12 1.66 3.84 3.75 3.97V22h2.5v-9.03C11.34 12.84 13 11.12 13 9V2h-2v7zm5-3v8h2.5v8H21V2c-2.76 0-5 2.24-5 4z"/></svg>AWD</div>
+            </div>
+            <div class="pros-cons">
+              <div class="pc-block pros">
+                <div class="pc-title pros">Pros</div>
+                <ul class="pc-list">
+                  <li>Iconic off-road capability</li>
+                  <li>Massive V8 performance</li>
+                  <li>High resale value</li>
+                </ul>
+              </div>
+              <div class="pc-block cons">
+                <div class="pc-title cons">Cons</div>
+                <ul class="pc-list">
+                  <li>High fuel consumption</li>
+                  <li>Firm & noisy cabin</li>
+                </ul>
+              </div>
+            </div>
+            <div class="car-price-strip">
+              <div><div class="price-label">Starting from</div><div class="price-value">AED 890,000 <span>approx.</span></div></div>
+            </div>
+            <div class="car-cta">
+              <button class="btn-buy" data-make="Mercedes-Benz" data-name="G 63 AMG" data-price="AED 890,000"><svg viewBox="0 0 24 24"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96C5 16.1 6.1 17 7 17h11v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63H16c.75 0 1.41-.41 1.75-1.03l3.58-6.49A1 1 0 0020.45 4H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg>Buy Now</button>
+              <a href="https://wa.me/971500000000" target="_blank" class="btn-whatsapp"><svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>WhatsApp</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2. Lamborghini Urus White -->
+        <div class="car-card reveal reveal-delay-1" data-category="suv luxury sports" data-id="1">
+          <div class="car-img-wrap">
+            <img src="../img/lamborghini-urus-white (1).avif" alt="Lamborghini Urus Performante" loading="lazy" />
+            <span class="car-badge luxury">Luxury</span>
+            <span class="car-available">Available</span>
+          </div>
+          <div class="car-body">
+            <div class="car-make">Lamborghini</div>
+            <div class="car-name">Urus Performante</div>
+            <p class="car-desc">The world's fastest super-SUV. 657hp twin-turbo V8, 0–100 in 3.3 seconds. A sculpted white machine that turns heads on every UAE boulevard.</p>
+            <div class="car-specs">
+              <div class="spec-chip"><svg viewBox="0 0 24 24"><path d="M13 2.05V4.1c3.95.49 7 3.85 7 7.9s-3.05 7.41-7 7.9v2.05c5.06-.5 9-4.76 9-9.95s-3.94-9.45-9-9.95z"/></svg>657 hp</div>
+              <div class="spec-chip"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17.93V18h-2v1.93C7.06 19.44 4.56 16.94 4.07 14H6v-2H4.07C4.56 9.06 7.06 6.56 10 6.07V8h2V6.07c2.94.49 5.44 2.99 5.93 5.93H16v2h1.93c-.49 2.94-2.99 5.44-5.93 5.93z"/></svg>V8 TT</div>
+              <div class="spec-chip"><svg viewBox="0 0 24 24"><path d="M11 9H9V2H7v7H5V2H3v7c0 2.12 1.66 3.84 3.75 3.97V22h2.5v-9.03C11.34 12.84 13 11.12 13 9V2h-2v7zm5-3v8h2.5v8H21V2c-2.76 0-5 2.24-5 4z"/></svg>0–100: 3.3s</div>
+            </div>
+            <div class="pros-cons">
+              <div class="pc-block pros">
+                <div class="pc-title pros">Pros</div>
+                <ul class="pc-list">
+                  <li>Supercar performance</li>
+                  <li>Stunning design</li>
+                  <li>Practical daily driver</li>
+                </ul>
+              </div>
+              <div class="pc-block cons">
+                <div class="pc-title cons">Cons</div>
+                <ul class="pc-list">
+                  <li>Very high running cost</li>
+                  <li>Stiff ride on rough roads</li>
+                </ul>
+              </div>
+            </div>
+            <div class="car-price-strip">
+              <div><div class="price-label">Starting from</div><div class="price-value">AED 1,350,000 <span>approx.</span></div></div>
+            </div>
+            <div class="car-cta">
+              <button class="btn-buy" data-make="Lamborghini" data-name="Urus Performante" data-price="AED 1,350,000"><svg viewBox="0 0 24 24"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96C5 16.1 6.1 17 7 17h11v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63H16c.75 0 1.41-.41 1.75-1.03l3.58-6.49A1 1 0 0020.45 4H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg>Buy Now</button>
+              <a href="https://wa.me/971500000000" target="_blank" class="btn-whatsapp"><svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>WhatsApp</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3. Cadillac Escalade Limousine -->
+        <div class="car-card reveal reveal-delay-2" data-category="limousine luxury" data-id="2">
+          <div class="car-img-wrap">
+            <img src="../img/cadillac-limo (2).webp" alt="Cadillac Escalade Limousine" loading="lazy" />
+            <span class="car-badge luxury">Limousine</span>
+            <span class="car-available">Available</span>
+          </div>
+          <div class="car-body">
+            <div class="car-make">Cadillac</div>
+            <div class="car-name">Escalade Limo</div>
+            <p class="car-desc">The ultimate statement of arrival. Stretched Escalade limousine with Dubai skyline as backdrop — seats 10+ guests in full VIP luxury.</p>
+            <div class="car-specs">
+              <div class="spec-chip"><svg viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>10+ Seats</div>
+              <div class="spec-chip"><svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>VIP Interior</div>
+              <div class="spec-chip"><svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 14l-5-5 1.41-1.41L12 14.17l7.59-7.59L21 8l-9 9z"/></svg>Mini Bar</div>
+            </div>
+            <div class="pros-cons">
+              <div class="pc-block pros">
+                <div class="pc-title pros">Pros</div>
+                <ul class="pc-list">
+                  <li>Ultimate VIP experience</li>
+                  <li>Large group capacity</li>
+                  <li>Premium entertainment system</li>
+                </ul>
+              </div>
+              <div class="pc-block cons">
+                <div class="pc-title cons">Cons</div>
+                <ul class="pc-list">
+                  <li>Limited maneuverability</li>
+                  <li>Not for daily driving</li>
+                </ul>
+              </div>
+            </div>
+            <div class="car-price-strip">
+              <div><div class="price-label">Starting from</div><div class="price-value">AED 650,000 <span>approx.</span></div></div>
+            </div>
+            <div class="car-cta">
+              <button class="btn-buy" data-make="Cadillac" data-name="Escalade Limo" data-price="AED 650,000"><svg viewBox="0 0 24 24"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96C5 16.1 6.1 17 7 17h11v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63H16c.75 0 1.41-.41 1.75-1.03l3.58-6.49A1 1 0 0020.45 4H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg>Buy Now</button>
+              <a href="https://wa.me/971500000000" target="_blank" class="btn-whatsapp"><svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>WhatsApp</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- 4. Rolls-Royce Cullinan -->
+        <div class="car-card reveal reveal-delay-3" data-category="suv luxury" data-id="3">
+          <div class="car-img-wrap">
+            <img src="../img/rolls-royce-cullinan (2).webp" alt="Rolls-Royce Cullinan Black Badge" loading="lazy" />
+            <span class="car-badge luxury">Luxury</span>
+            <span class="car-available">Available</span>
+          </div>
+          <div class="car-body">
+            <div class="car-make">Rolls-Royce</div>
+            <div class="car-name">Cullinan Black Badge</div>
+            <p class="car-desc">The pinnacle of automotive luxury. Black Badge edition exudes pure power and refinement — bespoke interior, star-light roof, and a 6.75L V12 that whispers.</p>
+            <div class="car-specs">
+              <div class="spec-chip"><svg viewBox="0 0 24 24"><path d="M13 2.05V4.1c3.95.49 7 3.85 7 7.9s-3.05 7.41-7 7.9v2.05c5.06-.5 9-4.76 9-9.95s-3.94-9.45-9-9.95z"/></svg>600 hp</div>
+              <div class="spec-chip"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17.93V18h-2v1.93C7.06 19.44 4.56 16.94 4.07 14H6v-2H4.07C4.56 9.06 7.06 6.56 10 6.07V8h2V6.07c2.94.49 5.44 2.99 5.93 5.93H16v2h1.93c-.49 2.94-2.99 5.44-5.93 5.93z"/></svg>V12 6.75L</div>
+              <div class="spec-chip"><svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>Bespoke</div>
+            </div>
+            <div class="pros-cons">
+              <div class="pc-block pros">
+                <div class="pc-title pros">Pros</div>
+                <ul class="pc-list">
+                  <li>Unmatched cabin luxury</li>
+                  <li>Starlight headliner option</li>
+                  <li>Whisper-quiet V12</li>
+                </ul>
+              </div>
+              <div class="pc-block cons">
+                <div class="pc-title cons">Cons</div>
+                <ul class="pc-list">
+                  <li>Extremely high price</li>
+                  <li>Large turning radius</li>
+                </ul>
+              </div>
+            </div>
+            <div class="car-price-strip">
+              <div><div class="price-label">Starting from</div><div class="price-value">AED 2,800,000 <span>approx.</span></div></div>
+            </div>
+            <div class="car-cta">
+              <button class="btn-buy" data-make="Rolls-Royce" data-name="Cullinan Black Badge" data-price="AED 2,800,000"><svg viewBox="0 0 24 24"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96C5 16.1 6.1 17 7 17h11v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63H16c.75 0 1.41-.41 1.75-1.03l3.58-6.49A1 1 0 0020.45 4H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg>Buy Now</button>
+              <a href="https://wa.me/971500000000" target="_blank" class="btn-whatsapp"><svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>WhatsApp</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- 5. Porsche 911 Turbo -->
+        <div class="car-card reveal reveal-delay-4" data-category="sports luxury" data-id="4">
+          <div class="car-img-wrap">
+            <img src="../img/porsche-911 (2).webp" alt="Porsche 911 Turbo 2024" loading="lazy" />
+            <span class="car-badge">Sports</span>
+            <span class="car-available">Available</span>
+          </div>
+          <div class="car-body">
+            <div class="car-make">Porsche</div>
+            <div class="car-name">911 Turbo S</div>
+            <p class="car-desc">Slate-grey perfection. The 2024 Porsche 911 Turbo S delivers 650hp and surgical precision — the benchmark sports car that all others try to match.</p>
+            <div class="car-specs">
+              <div class="spec-chip"><svg viewBox="0 0 24 24"><path d="M13 2.05V4.1c3.95.49 7 3.85 7 7.9s-3.05 7.41-7 7.9v2.05c5.06-.5 9-4.76 9-9.95s-3.94-9.45-9-9.95z"/></svg>650 hp</div>
+              <div class="spec-chip"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17.93V18h-2v1.93C7.06 19.44 4.56 16.94 4.07 14H6v-2H4.07C4.56 9.06 7.06 6.56 10 6.07V8h2V6.07c2.94.49 5.44 2.99 5.93 5.93H16v2h1.93c-.49 2.94-2.99 5.44-5.93 5.93z"/></svg>Flat-6 Turbo</div>
+              <div class="spec-chip"><svg viewBox="0 0 24 24"><path d="M11 9H9V2H7v7H5V2H3v7c0 2.12 1.66 3.84 3.75 3.97V22h2.5v-9.03C11.34 12.84 13 11.12 13 9V2h-2v7zm5-3v8h2.5v8H21V2c-2.76 0-5 2.24-5 4z"/></svg>0–100: 2.7s</div>
+            </div>
+            <div class="pros-cons">
+              <div class="pc-block pros">
+                <div class="pc-title pros">Pros</div>
+                <ul class="pc-list">
+                  <li>Track-precise handling</li>
+                  <li>Usable daily sports car</li>
+                  <li>Excellent resale value</li>
+                </ul>
+              </div>
+              <div class="pc-block cons">
+                <div class="pc-title cons">Cons</div>
+                <ul class="pc-list">
+                  <li>Rear seats very cramped</li>
+                  <li>Options list adds up fast</li>
+                </ul>
+              </div>
+            </div>
+            <div class="car-price-strip">
+              <div><div class="price-label">Starting from</div><div class="price-value">AED 720,000 <span>approx.</span></div></div>
+            </div>
+            <div class="car-cta">
+              <button class="btn-buy" data-make="Porsche" data-name="911 Turbo S" data-price="AED 720,000"><svg viewBox="0 0 24 24"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96C5 16.1 6.1 17 7 17h11v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63H16c.75 0 1.41-.41 1.75-1.03l3.58-6.49A1 1 0 0020.45 4H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg>Buy Now</button>
+              <a href="https://wa.me/971500000000" target="_blank" class="btn-whatsapp"><svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>WhatsApp</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- 6. Honda Accord -->
+        <div class="car-card reveal reveal-delay-5" data-category="sedan" data-id="5">
+          <div class="car-img-wrap">
+            <img src="../img/honda-accord (2).jpg" alt="Honda Accord 2024" loading="lazy" />
+            <span class="car-badge sedan">Sedan</span>
+            <span class="car-available">Available</span>
+          </div>
+          <div class="car-body">
+            <div class="car-make">Honda</div>
+            <div class="car-name">Accord 2024</div>
+            <p class="car-desc">The refined daily hero. The all-new 2024 Accord in elegant silver combines Honda's legendary reliability with a bold redesign and premium tech features.</p>
+            <div class="car-specs">
+              <div class="spec-chip"><svg viewBox="0 0 24 24"><path d="M13 2.05V4.1c3.95.49 7 3.85 7 7.9s-3.05 7.41-7 7.9v2.05c5.06-.5 9-4.76 9-9.95s-3.94-9.45-9-9.95z"/></svg>192 hp</div>
+              <div class="spec-chip"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17.93V18h-2v1.93C7.06 19.44 4.56 16.94 4.07 14H6v-2H4.07C4.56 9.06 7.06 6.56 10 6.07V8h2V6.07c2.94.49 5.44 2.99 5.93 5.93H16v2h1.93c-.49 2.94-2.99 5.44-5.93 5.93z"/></svg>1.5T 4-Cyl</div>
+              <div class="spec-chip"><svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 14l-5-5 1.41-1.41L12 14.17l7.59-7.59L21 8l-9 9z"/></svg>Honda Sensing</div>
+            </div>
+            <div class="pros-cons">
+              <div class="pc-block pros">
+                <div class="pc-title pros">Pros</div>
+                <ul class="pc-list">
+                  <li>Excellent fuel economy</li>
+                  <li>Spacious, refined cabin</li>
+                  <li>Top safety ratings</li>
+                </ul>
+              </div>
+              <div class="pc-block cons">
+                <div class="pc-title cons">Cons</div>
+                <ul class="pc-list">
+                  <li>Not performance-focused</li>
+                  <li>Base trim lacks features</li>
+                </ul>
+              </div>
+            </div>
+            <div class="car-price-strip">
+              <div><div class="price-label">Starting from</div><div class="price-value">AED 115,000 <span>approx.</span></div></div>
+            </div>
+            <div class="car-cta">
+              <button class="btn-buy" data-make="Honda" data-name="Accord 2024" data-price="AED 115,000"><svg viewBox="0 0 24 24"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96C5 16.1 6.1 17 7 17h11v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63H16c.75 0 1.41-.41 1.75-1.03l3.58-6.49A1 1 0 0020.45 4H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg>Buy Now</button>
+              <a href="https://wa.me/971500000000" target="_blank" class="btn-whatsapp"><svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>WhatsApp</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- 7. Bentley Bentayga -->
+        <div class="car-card reveal" data-category="suv luxury" data-id="6">
+          <div class="car-img-wrap">
+            <img src="../img/bentley-bentayga (2).webp" alt="Bentley Bentayga Black" loading="lazy" />
+            <span class="car-badge luxury">Luxury</span>
+            <span class="car-available">Available</span>
+          </div>
+          <div class="car-body">
+            <div class="car-make">Bentley</div>
+            <div class="car-name">Bentayga S</div>
+            <p class="car-desc">All-black drama with Burj Khalifa on the horizon. Bentayga S combines British craftsmanship with 542hp W12 thunder — sport meets opulence.</p>
+            <div class="car-specs">
+              <div class="spec-chip"><svg viewBox="0 0 24 24"><path d="M13 2.05V4.1c3.95.49 7 3.85 7 7.9s-3.05 7.41-7 7.9v2.05c5.06-.5 9-4.76 9-9.95s-3.94-9.45-9-9.95z"/></svg>542 hp</div>
+              <div class="spec-chip"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17.93V18h-2v1.93C7.06 19.44 4.56 16.94 4.07 14H6v-2H4.07C4.56 9.06 7.06 6.56 10 6.07V8h2V6.07c2.94.49 5.44 2.99 5.93 5.93H16v2h1.93c-.49 2.94-2.99 5.44-5.93 5.93z"/></svg>W12 TT</div>
+              <div class="spec-chip"><svg viewBox="0 0 24 24"><path d="M11 9H9V2H7v7H5V2H3v7c0 2.12 1.66 3.84 3.75 3.97V22h2.5v-9.03C11.34 12.84 13 11.12 13 9V2h-2v7zm5-3v8h2.5v8H21V2c-2.76 0-5 2.24-5 4z"/></svg>0–100: 4.4s</div>
+            </div>
+            <div class="pros-cons">
+              <div class="pc-block pros">
+                <div class="pc-title pros">Pros</div>
+                <ul class="pc-list">
+                  <li>Hand-stitched luxury interior</li>
+                  <li>Sporty & comfortable blend</li>
+                  <li>Prestige brand status</li>
+                </ul>
+              </div>
+              <div class="pc-block cons">
+                <div class="pc-title cons">Cons</div>
+                <ul class="pc-list">
+                  <li>Enormous fuel consumption</li>
+                  <li>High maintenance cost</li>
+                </ul>
+              </div>
+            </div>
+            <div class="car-price-strip">
+              <div><div class="price-label">Starting from</div><div class="price-value">AED 1,100,000 <span>approx.</span></div></div>
+            </div>
+            <div class="car-cta">
+              <button class="btn-buy" data-make="Bentley" data-name="Bentayga S" data-price="AED 1,100,000"><svg viewBox="0 0 24 24"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96C5 16.1 6.1 17 7 17h11v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63H16c.75 0 1.41-.41 1.75-1.03l3.58-6.49A1 1 0 0020.45 4H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg>Buy Now</button>
+              <a href="https://wa.me/971500000000" target="_blank" class="btn-whatsapp"><svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>WhatsApp</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- 8. Toyota Land Cruiser 300 -->
+        <div class="car-card reveal reveal-delay-1" data-category="suv" data-id="7">
+          <div class="car-img-wrap">
+            <img src="../img/toyota-lc300 (2).avif" alt="Toyota Land Cruiser 300" loading="lazy" />
+            <span class="car-badge suv">SUV</span>
+            <span class="car-available">Available</span>
+          </div>
+          <div class="car-body">
+            <div class="car-make">Toyota</div>
+            <div class="car-name">Land Cruiser 300</div>
+            <p class="car-desc">The undisputed UAE desert king. LC300 combines extraordinary off-road capability with a bold two-tone black/white finish and full-spec tech arsenal.</p>
+            <div class="car-specs">
+              <div class="spec-chip"><svg viewBox="0 0 24 24"><path d="M13 2.05V4.1c3.95.49 7 3.85 7 7.9s-3.05 7.41-7 7.9v2.05c5.06-.5 9-4.76 9-9.95s-3.94-9.45-9-9.95z"/></svg>415 hp</div>
+              <div class="spec-chip"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17.93V18h-2v1.93C7.06 19.44 4.56 16.94 4.07 14H6v-2H4.07C4.56 9.06 7.06 6.56 10 6.07V8h2V6.07c2.94.49 5.44 2.99 5.93 5.93H16v2h1.93c-.49 2.94-2.99 5.44-5.93 5.93z"/></svg>V6 TT</div>
+              <div class="spec-chip"><svg viewBox="0 0 24 24"><path d="M11 9H9V2H7v7H5V2H3v7c0 2.12 1.66 3.84 3.75 3.97V22h2.5v-9.03C11.34 12.84 13 11.12 13 9V2h-2v7zm5-3v8h2.5v8H21V2c-2.76 0-5 2.24-5 4z"/></svg>7 Seats</div>
+            </div>
+            <div class="pros-cons">
+              <div class="pc-block pros">
+                <div class="pc-title pros">Pros</div>
+                <ul class="pc-list">
+                  <li>Desert-proven reliability</li>
+                  <li>Huge off-road capability</li>
+                  <li>Excellent resale value in UAE</li>
+                </ul>
+              </div>
+              <div class="pc-block cons">
+                <div class="pc-title cons">Cons</div>
+                <ul class="pc-list">
+                  <li>Thirsty engine</li>
+                  <li>Large footprint in city</li>
+                </ul>
+              </div>
+            </div>
+            <div class="car-price-strip">
+              <div><div class="price-label">Starting from</div><div class="price-value">AED 390,000 <span>approx.</span></div></div>
+            </div>
+            <div class="car-cta">
+              <button class="btn-buy" data-make="Toyota" data-name="Land Cruiser 300" data-price="AED 390,000"><svg viewBox="0 0 24 24"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96C5 16.1 6.1 17 7 17h11v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63H16c.75 0 1.41-.41 1.75-1.03l3.58-6.49A1 1 0 0020.45 4H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg>Buy Now</button>
+              <a href="https://wa.me/971500000000" target="_blank" class="btn-whatsapp"><svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>WhatsApp</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- 9. Ford Mustang Convertible -->
+        <div class="car-card reveal reveal-delay-2" data-category="sports" data-id="8">
+          <div class="car-img-wrap">
+            <img src="../img/mustang-red (2).jpg" alt="Ford Mustang GT Convertible" loading="lazy" />
+            <span class="car-badge">Sports</span>
+            <span class="car-available">Available</span>
+          </div>
+          <div class="car-body">
+            <div class="car-make">Ford</div>
+            <div class="car-name">Mustang GT Convertible</div>
+            <p class="car-desc">Pure American muscle in fire-engine red. Drop-top freedom with a 5.0L V8 roar and red leather interior — built for UAE evenings on Sheikh Zayed Road.</p>
+            <div class="car-specs">
+              <div class="spec-chip"><svg viewBox="0 0 24 24"><path d="M13 2.05V4.1c3.95.49 7 3.85 7 7.9s-3.05 7.41-7 7.9v2.05c5.06-.5 9-4.76 9-9.95s-3.94-9.45-9-9.95z"/></svg>450 hp</div>
+              <div class="spec-chip"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17.93V18h-2v1.93C7.06 19.44 4.56 16.94 4.07 14H6v-2H4.07C4.56 9.06 7.06 6.56 10 6.07V8h2V6.07c2.94.49 5.44 2.99 5.93 5.93H16v2h1.93c-.49 2.94-2.99 5.44-5.93 5.93z"/></svg>V8 5.0L</div>
+              <div class="spec-chip"><svg viewBox="0 0 24 24"><path d="M12 3c-4.97 0-9 4.03-9 9s4.03 9 9 9 9-4.03 9-9c0-.46-.04-.92-.1-1.36-.98 1.37-2.58 2.26-4.4 2.26-2.98 0-5.4-2.42-5.4-5.4 0-1.81.89-3.42 2.26-4.4-.44-.06-.9-.1-1.36-.1z"/></svg>Convertible</div>
+            </div>
+            <div class="pros-cons">
+              <div class="pc-block pros">
+                <div class="pc-title pros">Pros</div>
+                <ul class="pc-list">
+                  <li>Head-turning red finish</li>
+                  <li>V8 soundtrack is iconic</li>
+                  <li>Open-top UAE experience</li>
+                </ul>
+              </div>
+              <div class="pc-block cons">
+                <div class="pc-title cons">Cons</div>
+                <ul class="pc-list">
+                  <li>Basic interior vs rivals</li>
+                  <li>Rear wheel drive only</li>
+                </ul>
+              </div>
+            </div>
+            <div class="car-price-strip">
+              <div><div class="price-label">Starting from</div><div class="price-value">AED 210,000 <span>approx.</span></div></div>
+            </div>
+            <div class="car-cta">
+              <button class="btn-buy" data-make="Ford" data-name="Mustang GT Convertible" data-price="AED 210,000"><svg viewBox="0 0 24 24"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96C5 16.1 6.1 17 7 17h11v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63H16c.75 0 1.41-.41 1.75-1.03l3.58-6.49A1 1 0 0020.45 4H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg>Buy Now</button>
+              <a href="https://wa.me/971500000000" target="_blank" class="btn-whatsapp"><svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>WhatsApp</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- 10. Infiniti QX80 -->
+        <div class="car-card reveal reveal-delay-3" data-category="suv luxury" data-id="9">
+          <div class="car-img-wrap">
+            <img src="../img/infiniti-qx80 (2).webp" alt="Infiniti QX80" loading="lazy" />
+            <span class="car-badge suv">SUV</span>
+            <span class="car-available">Available</span>
+          </div>
+          <div class="car-body">
+            <div class="car-make">Infiniti</div>
+            <div class="car-name">QX80 Autograph</div>
+            <p class="car-desc">Full-size luxury SUV in desert gold — 400hp V6, semi-aniline leather, and a palatial 3-row cabin for the family that refuses to compromise on style.</p>
+            <div class="car-specs">
+              <div class="spec-chip"><svg viewBox="0 0 24 24"><path d="M13 2.05V4.1c3.95.49 7 3.85 7 7.9s-3.05 7.41-7 7.9v2.05c5.06-.5 9-4.76 9-9.95s-3.94-9.45-9-9.95z"/></svg>400 hp</div>
+              <div class="spec-chip"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17.93V18h-2v1.93C7.06 19.44 4.56 16.94 4.07 14H6v-2H4.07C4.56 9.06 7.06 6.56 10 6.07V8h2V6.07c2.94.49 5.44 2.99 5.93 5.93H16v2h1.93c-.49 2.94-2.99 5.44-5.93 5.93z"/></svg>Twin Turbo V6</div>
+              <div class="spec-chip"><svg viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>8 Seats</div>
+            </div>
+            <div class="pros-cons">
+              <div class="pc-block pros">
+                <div class="pc-title pros">Pros</div>
+                <ul class="pc-list">
+                  <li>Premium large-family SUV</li>
+                  <li>Gorgeous interior quality</li>
+                  <li>Strong towing capacity</li>
+                </ul>
+              </div>
+              <div class="pc-block cons">
+                <div class="pc-title cons">Cons</div>
+                <ul class="pc-list">
+                  <li>Below-average fuel economy</li>
+                  <li>Infotainment feels dated</li>
+                </ul>
+              </div>
+            </div>
+            <div class="car-price-strip">
+              <div><div class="price-label">Starting from</div><div class="price-value">AED 320,000 <span>approx.</span></div></div>
+            </div>
+            <div class="car-cta">
+              <button class="btn-buy" data-make="Infiniti" data-name="QX80 Autograph" data-price="AED 320,000"><svg viewBox="0 0 24 24"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96C5 16.1 6.1 17 7 17h11v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63H16c.75 0 1.41-.41 1.75-1.03l3.58-6.49A1 1 0 0020.45 4H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg>Buy Now</button>
+              <a href="https://wa.me/971500000000" target="_blank" class="btn-whatsapp"><svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>WhatsApp</a>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /cars-grid -->
+
+      <div class="empty-state" id="emptyState">
+        <h3>No vehicles found</h3>
+        <p>Try selecting a different category.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ══ CTA BOTTOM ══ -->
+  <div class="cta-bottom">
+    <div class="container">
+      <h2>Can't Find What<br>You're <span>Looking For?</span></h2>
+      <p>All our vehicles are available for everyone. Reach out and we'll find the perfect match for your taste.</p>
+      <div class="cta-actions">
+        <a href="https://wa.me/971500000000" target="_blank" class="cta-wa">
+          <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          Chat on WhatsApp
+        </a>
+        <a href="contact.html" class="cta-call">
+          Contact Us →
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <p>© 2025 <span>Ginyard International Co.</span> — UAE. All rights reserved.</p>
+  </footer>
+
+  <!-- ══ PURCHASE POPUP ══ -->
+  <div class="buy-overlay" id="buyOverlay">
+    <div class="buy-modal" id="buyModal">
+      <div class="buy-modal-header">
+        <button class="buy-close" id="buyClose"><svg viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg></button>
+        <div class="buy-modal-car-make" id="popupMake">Mercedes-Benz</div>
+        <div class="buy-modal-car-name" id="popupName">G 63 AMG</div>
+        <div class="buy-modal-price-row">
+          <div class="buy-modal-price" id="popupPrice">AED 890,000</div>
+          <div class="buy-modal-price-note">Starting from (approx.)</div>
+        </div>
+      </div>
+      <div class="buy-modal-body" id="buyForm">
+        <div class="buy-form-title">Your Information</div>
+        <div class="form-row">
+          <div class="form-group"><label class="form-label">First Name *</label><input class="form-input" type="text" placeholder="Ahmad" id="f-fname" /></div>
+          <div class="form-group"><label class="form-label">Last Name *</label><input class="form-input" type="text" placeholder="Al-Rashid" id="f-lname" /></div>
+        </div>
+        <div class="form-row">
+          <div class="form-group"><label class="form-label">Phone / WhatsApp *</label><input class="form-input" type="tel" placeholder="+971 50 000 0000" id="f-phone" /></div>
+          <div class="form-group"><label class="form-label">Email</label><input class="form-input" type="email" placeholder="you@email.com" /></div>
+        </div>
+        <div class="form-row">
+          <div class="form-group"><label class="form-label">Preferred Contact</label><select class="form-select"><option>WhatsApp</option><option>Phone Call</option><option>Email</option></select></div>
+          <div class="form-group"><label class="form-label">When to Contact</label><select class="form-select"><option>As soon as possible</option><option>Morning (9am–12pm)</option><option>Afternoon (12pm–5pm)</option><option>Evening (5pm–9pm)</option></select></div>
+        </div>
+        <div class="form-row single">
+          <div class="form-group"><label class="form-label">Additional Notes</label><textarea class="form-textarea" placeholder="Any specific requirements, color preferences, financing questions..."></textarea></div>
+        </div>
+        <div class="buy-divider"></div>
+        <div class="buy-summary">
+          <div class="buy-summary-title">Order Summary</div>
+          <div class="buy-summary-row"><span>Vehicle</span><span id="summaryName">—</span></div>
+          <div class="buy-summary-row"><span>Availability</span><span style="color:#16a34a">✓ Available</span></div>
+          <div class="buy-summary-row"><span>Location</span><span>UAE Showroom</span></div>
+          <div class="buy-summary-row buy-summary-total"><span>Est. Starting Price</span><span id="summaryPrice">—</span></div>
+        </div>
+        <button class="btn-submit-buy" id="submitBuy">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          Send Purchase Request via WhatsApp
+        </button>
+        <p class="buy-note">Our team will contact you within 24 hours to confirm details.<br>No payment required at this stage.</p>
+      </div>
+      <div class="buy-success" id="buySuccess">
+        <div class="buy-success-icon">✅</div>
+        <h3>Request Sent!</h3>
+        <p>Your purchase request has been received.<br>Our team will reach out to you shortly via your preferred contact method.</p>
+        <button class="back-btn" id="backBtn">Back to Catalogue</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ JS ══ -->
+  <script src="index.js">
+
+  </script>
+</body>
+</html>
