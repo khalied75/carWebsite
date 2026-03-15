@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact — Ginyard International Co.</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --red: #d42020;
+      --red-dark: #a01515;
+      --red-light: #ff4444;
+      --bg: #f0f0f2;
+      --white: #ffffff;
+      --dark: #111111;
+      --gray: #666666;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Barlow', sans-serif; background: var(--bg); color: var(--dark); overflow-x: hidden; }
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: #e0e0e0; }
+    ::-webkit-scrollbar-thumb { background: var(--red); border-radius: 3px; }
+
+    /* ══ NAVBAR ══ */
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(240,240,242,0.92); backdrop-filter: blur(14px); border-bottom: 1px solid rgba(212,32,32,.08); transition: box-shadow .3s; }
+    nav.scrolled { box-shadow: 0 4px 30px rgba(0,0,0,.12); }
+    .nav-inner { max-width: 1280px; margin: 0 auto; padding: 0 1.5rem; height: 68px; display: flex; align-items: center; justify-content: space-between; }
+    .logo { display: flex; align-items: center; gap: .55rem; text-decoration: none; }
+    .logo-icon { width: 34px; height: 34px; background: var(--red); border-radius: 8px; display: grid; place-items: center; }
+    .logo-icon svg { width: 20px; height: 20px; fill: white; }
+    .logo-text { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 1.05rem; color: var(--dark); letter-spacing: .02em; line-height: 1.2; }
+    .logo-text span { color: var(--red); }
+    .nav-links { display: flex; align-items: center; gap: 2.2rem; list-style: none; }
+    .nav-links a { font-size: .92rem; font-weight: 500; color: #444; text-decoration: none; position: relative; transition: color .25s; }
+    .nav-links a::after { content: ''; position: absolute; left: 0; bottom: -3px; width: 0; height: 2px; background: var(--red); border-radius: 1px; transition: width .3s; }
+    .nav-links a:hover { color: var(--red); }
+    .nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
+    .nav-links a.active { color: var(--red); font-weight: 600; }
+    .btn-login { background: var(--red) !important; color: white !important; padding: .5rem 1.4rem; border-radius: 50px; font-weight: 600 !important; font-size: .88rem !important; box-shadow: 0 4px 15px rgba(212,32,32,.35); transition: background .25s, transform .2s !important; }
+    .btn-login:hover { background: var(--red-dark) !important; transform: translateY(-1px) !important; }
+    .btn-login::after { display: none !important; }
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; border: none; background: transparent; }
+    .hamburger span { display: block; width: 26px; height: 2px; background: var(--dark); border-radius: 2px; transition: transform .35s, opacity .25s, width .3s; }
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; width: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+    .mobile-menu { display: none; position: fixed; top: 68px; left: 0; right: 0; background: rgba(240,240,242,.97); backdrop-filter: blur(16px); padding: 1.5rem; flex-direction: column; gap: 0; z-index: 99; transform: translateY(-10px); opacity: 0; transition: transform .35s ease, opacity .35s ease; border-bottom: 2px solid var(--red); }
+    .mobile-menu.visible { display: flex; transform: translateY(0); opacity: 1; }
+    .mobile-menu a { font-size: 1.1rem; font-weight: 500; color: var(--dark); text-decoration: none; padding: .85rem 0; border-bottom: 1px solid rgba(0,0,0,.07); display: flex; align-items: center; gap: .6rem; transition: color .2s, padding-left .2s; }
+    .mobile-menu a:hover { color: var(--red); padding-left: .4rem; }
+    .mobile-menu a.active { color: var(--red); font-weight: 600; }
+    .mobile-menu .m-login { margin-top: 1rem; background: var(--red); color: white !important; justify-content: center; border-radius: 50px; border-bottom: none; padding: .85rem; font-weight: 700 !important; }
+
+    /* ══ PAGE HEADER ══ */
+    .page-header { padding-top: 68px; background: linear-gradient(135deg, #0d0d0d 0%, #1a0808 60%, #0d0d0d 100%); position: relative; overflow: hidden; }
+    .ph-grid { position: absolute; inset: 0; background-image: linear-gradient(rgba(212,32,32,.06) 1px, transparent 1px), linear-gradient(90deg, rgba(212,32,32,.06) 1px, transparent 1px); background-size: 50px 50px; }
+    .ph-glow { position: absolute; top: -80px; right: -80px; width: 480px; height: 480px; border-radius: 50%; background: radial-gradient(circle, rgba(212,32,32,.22) 0%, transparent 70%); }
+    .ph-inner { max-width: 1280px; margin: 0 auto; padding: 4.5rem 1.5rem 3.5rem; position: relative; z-index: 2; }
+    .ph-eyebrow { display: inline-flex; align-items: center; gap: .5rem; background: rgba(212,32,32,.15); border: 1px solid rgba(212,32,32,.3); border-radius: 50px; padding: .3rem .9rem; font-size: .75rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: #ff7070; margin-bottom: 1rem; opacity: 0; animation: fadeUp .6s .1s forwards; }
+    .ph-title { font-family: 'Barlow Condensed', sans-serif; font-size: clamp(2.8rem, 6vw, 5.5rem); font-weight: 900; text-transform: uppercase; color: white; line-height: .95; opacity: 0; animation: fadeUp .7s .2s forwards; }
+    .ph-title .outline { -webkit-text-stroke: 2px rgba(255,255,255,.3); color: transparent; }
+    .ph-sub { font-size: .95rem; color: rgba(255,255,255,.5); margin-top: .9rem; max-width: 460px; line-height: 1.75; opacity: 0; animation: fadeUp .7s .35s forwards; }
+    .breadcrumb { display: flex; align-items: center; gap: .5rem; margin-top: 1.8rem; opacity: 0; animation: fadeUp .6s .5s forwards; }
+    .breadcrumb a, .breadcrumb span { font-size: .82rem; text-decoration: none; color: rgba(255,255,255,.4); transition: color .2s; }
+    .breadcrumb a:hover { color: var(--red-light); }
+    .breadcrumb .sep { color: rgba(255,255,255,.2); }
+    .breadcrumb .current { color: var(--red-light); font-weight: 600; }
+
+    /* ══ WARMTH BANNER ══ */
+    .warmth-banner {
+      background: var(--red);
+      padding: 2.2rem 0;
+      position: relative; overflow: hidden;
+      text-align: center;
+    }
+    .warmth-banner::before {
+      content: ''; position: absolute; inset: 0;
+      background: repeating-linear-gradient(
+        45deg, transparent, transparent 30px,
+        rgba(255,255,255,.03) 30px, rgba(255,255,255,.03) 60px
+      );
+    }
+    .warmth-text {
+      position: relative; z-index: 1;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: clamp(1.3rem, 3vw, 2rem);
+      font-weight: 800; color: white;
+      text-transform: uppercase; letter-spacing: .03em;
+    }
+    .warmth-sub {
+      position: relative; z-index: 1;
+      color: rgba(255,255,255,.75);
+      font-size: .92rem; margin-top: .4rem;
+      line-height: 1.6;
+    }
+
+    /* ══ MAIN CONTENT ══ */
+    .main-section { padding: 5rem 0; }
+    .container { max-width: 1280px; margin: 0 auto; padding: 0 1.5rem; }
+
+    .content-grid {
+      display: grid;
+      grid-template-columns: 1.1fr .9fr;
+      gap: 3.5rem;
+      align-items: start;
+    }
+
+    /* ── CONTACT CHANNELS ── */
+    .channels-title {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: clamp(1.8rem, 3vw, 2.5rem);
+      font-weight: 900; text-transform: uppercase;
+      color: var(--dark); line-height: 1; margin-bottom: .5rem;
+    }
+    .channels-title .accent { color: var(--red); }
+    .channels-sub { font-size: .92rem; color: var(--gray); line-height: 1.7; margin-bottom: 2rem; max-width: 420px; }
+
+    .channel-card {
+      display: flex; align-items: center; gap: 1.2rem;
+      background: white; border-radius: 18px;
+      padding: 1.4rem 1.6rem;
+      margin-bottom: 1rem;
+      text-decoration: none; color: var(--dark);
+      box-shadow: 0 4px 16px rgba(0,0,0,.06);
+      transition: transform .3s, box-shadow .3s;
+      position: relative; overflow: hidden;
+    }
+    .channel-card::after {
+      content: ''; position: absolute;
+      left: 0; top: 0; bottom: 0; width: 4px;
+      border-radius: 0 2px 2px 0;
+      transform: scaleY(0);
+      transition: transform .3s ease;
+    }
+    .channel-card:hover { transform: translateX(6px); box-shadow: 0 8px 28px rgba(0,0,0,.1); }
+    .channel-card:hover::after { transform: scaleY(1); }
+
+    .ch-instagram::after { background: linear-gradient(180deg,#833ab4,#fd1d1d,#fcb045); }
+    .ch-facebook::after  { background: #1877f2; }
+    .ch-whatsapp::after  { background: #25d366; }
+
+    .ch-icon {
+      width: 52px; height: 52px; border-radius: 14px;
+      display: grid; place-items: center; flex-shrink: 0;
+      transition: transform .3s;
+    }
+    .channel-card:hover .ch-icon { transform: scale(1.1) rotate(-3deg); }
+    .ch-icon svg { width: 26px; height: 26px; fill: white; }
+    .ch-instagram .ch-icon { background: linear-gradient(135deg,#833ab4,#fd1d1d,#fcb045); }
+    .ch-facebook  .ch-icon { background: #1877f2; }
+    .ch-whatsapp  .ch-icon { background: #25d366; }
+
+    .ch-info { flex: 1; }
+    .ch-name { font-family: 'Barlow Condensed', sans-serif; font-size: 1.15rem; font-weight: 800; text-transform: uppercase; color: var(--dark); line-height: 1; }
+    .ch-handle { font-size: .82rem; color: var(--gray); margin-top: .15rem; font-weight: 500; }
+    .ch-tag { font-size: .7rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--red); margin-top: .3rem; }
+
+    .ch-arrow { color: #ccc; transition: color .3s, transform .3s; }
+    .channel-card:hover .ch-arrow { color: var(--red); transform: translateX(4px); }
+    .ch-arrow svg { width: 20px; height: 20px; fill: currentColor; }
+
+    /* working hours */
+    .hours-card {
+      background: var(--dark); border-radius: 18px;
+      padding: 1.6rem; margin-top: 1.2rem;
+    }
+    .hours-title {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 1.1rem; font-weight: 800;
+      text-transform: uppercase; color: white;
+      margin-bottom: 1rem; display: flex; align-items: center; gap: .5rem;
+    }
+    .hours-title svg { width: 16px; height: 16px; fill: var(--red-light); }
+    .hours-row { display: flex; justify-content: space-between; padding: .45rem 0; border-bottom: 1px solid rgba(255,255,255,.06); font-size: .85rem; }
+    .hours-row:last-child { border-bottom: none; }
+    .hours-day { color: rgba(255,255,255,.55); font-weight: 500; }
+    .hours-time { color: white; font-weight: 600; }
+    .hours-time.closed { color: #ef4444; font-weight: 600; }
+    .live-badge {
+      display: inline-flex; align-items: center; gap: .35rem;
+      background: rgba(74,222,128,.15); border: 1px solid rgba(74,222,128,.3);
+      border-radius: 50px; padding: .2rem .7rem;
+      font-size: .7rem; font-weight: 700; color: #4ade80;
+      margin-left: .5rem;
+    }
+    .live-badge::before { content: ''; width: 6px; height: 6px; background: #4ade80; border-radius: 50%; animation: livePulse 1.5s infinite; }
+    @keyframes livePulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.5;transform:scale(1.5)} }
+
+    /* ── RIGHT SIDE: direct contact + testimonial ── */
+    .right-col { display: flex; flex-direction: column; gap: 1.5rem; }
+
+    /* direct contact agent card */
+    .agent-card {
+      background: white; border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 4px 20px rgba(0,0,0,.08);
+    }
+    .agent-header {
+      background: linear-gradient(135deg, #111, #1a0808);
+      padding: 1.6rem;
+      position: relative; overflow: hidden;
+    }
+    .agent-header::before {
+      content: ''; position: absolute; inset: 0;
+      background-image: linear-gradient(rgba(212,32,32,.07) 1px, transparent 1px), linear-gradient(90deg, rgba(212,32,32,.07) 1px, transparent 1px);
+      background-size: 32px 32px;
+    }
+    .agent-label {
+      font-size: .7rem; font-weight: 700; letter-spacing: .14em;
+      text-transform: uppercase; color: var(--red-light);
+      margin-bottom: .6rem; position: relative; z-index: 1;
+    }
+    .agent-title {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 1.5rem; font-weight: 900;
+      text-transform: uppercase; color: white;
+      line-height: 1; position: relative; z-index: 1;
+    }
+    .agent-desc { font-size: .82rem; color: rgba(255,255,255,.5); margin-top: .5rem; line-height: 1.6; position: relative; z-index: 1; }
+
+    .agent-body { padding: 1.4rem; }
+    .agent-info-row {
+      display: flex; align-items: center; gap: .8rem;
+      padding: .8rem 0; border-bottom: 1px solid #f0f0f0;
+    }
+    .agent-info-row:last-child { border-bottom: none; }
+    .ai-icon {
+      width: 38px; height: 38px; border-radius: 10px;
+      display: grid; place-items: center; flex-shrink: 0;
+    }
+    .ai-icon svg { width: 18px; height: 18px; fill: white; }
+    .ai-icon.phone  { background: var(--red); }
+    .ai-icon.wa     { background: #25d366; }
+    .ai-icon.mail   { background: #6366f1; }
+    .ai-icon.loc    { background: #f59e0b; }
+    .ai-label { font-size: .72rem; color: #aaa; font-weight: 600; text-transform: uppercase; letter-spacing: .08em; }
+    .ai-val { font-size: .92rem; font-weight: 700; color: var(--dark); }
+    .ai-val a { text-decoration: none; color: var(--dark); transition: color .2s; }
+    .ai-val a:hover { color: var(--red); }
+
+    /* quick wa btn */
+    .quick-wa {
+      display: flex; align-items: center; justify-content: center; gap: .5rem;
+      width: 100%; background: #25d366; color: white;
+      border: none; border-radius: 50px; padding: .85rem;
+      font-weight: 800; font-size: .92rem; cursor: pointer;
+      text-decoration: none; margin-top: 1.2rem;
+      transition: background .2s, transform .2s;
+      box-shadow: 0 4px 16px rgba(37,211,102,.35);
+    }
+    .quick-wa:hover { background: #1aab52; transform: translateY(-2px); }
+    .quick-wa svg { width: 18px; height: 18px; fill: white; }
+
+    /* ── TESTIMONIAL CARD ── */
+    .testimonial-card {
+      background: white; border-radius: 20px;
+      padding: 1.8rem;
+      box-shadow: 0 4px 20px rgba(0,0,0,.08);
+      position: relative;
+    }
+    .tcard-quote {
+      font-size: 3.5rem; line-height: 1;
+      font-family: Georgia, serif;
+      color: var(--red); opacity: .2;
+      position: absolute; top: 1rem; left: 1.4rem;
+    }
+    .tcard-text {
+      font-size: .92rem; color: #444; line-height: 1.8;
+      font-style: italic; margin-bottom: 1.2rem;
+      padding-top: 1.2rem; position: relative; z-index: 1;
+    }
+    .tcard-author { display: flex; align-items: center; gap: .8rem; }
+    .tcard-avatar {
+      width: 44px; height: 44px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--red), #111);
+      display: grid; place-items: center;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 1.1rem; font-weight: 900; color: white;
+      flex-shrink: 0;
+    }
+    .tcard-name { font-weight: 700; font-size: .9rem; color: var(--dark); }
+    .tcard-meta { font-size: .75rem; color: #aaa; margin-top: .1rem; }
+    .tcard-stars { color: #f59e0b; font-size: .85rem; margin-top: .15rem; letter-spacing: .05em; }
+
+    /* ── QUICK MESSAGE FORM ── */
+    .quick-form-section { padding: 0 0 5rem; }
+    .qf-card {
+      background: white; border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 4px 24px rgba(0,0,0,.08);
+    }
+    .qf-header {
+      background: linear-gradient(135deg, var(--red), var(--red-dark));
+      padding: 2.2rem 2.5rem;
+      position: relative; overflow: hidden;
+    }
+    .qf-header::before {
+      content: ''; position: absolute; inset: 0;
+      background: repeating-linear-gradient(
+        -45deg, transparent, transparent 20px,
+        rgba(255,255,255,.04) 20px, rgba(255,255,255,.04) 40px
+      );
+    }
+    .qf-header-title {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: clamp(1.6rem, 3vw, 2.2rem); font-weight: 900;
+      text-transform: uppercase; color: white; line-height: 1;
+      position: relative; z-index: 1;
+    }
+    .qf-header-sub { color: rgba(255,255,255,.7); font-size: .9rem; margin-top: .5rem; line-height: 1.6; position: relative; z-index: 1; }
+
+    .qf-body { padding: 2rem 2.5rem; }
+    .qf-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem; margin-bottom: 1rem; }
+    .qf-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem; }
+    .qf-single { margin-bottom: 1rem; }
+
+    .qf-label { display: block; font-size: .75rem; font-weight: 700; color: #444; margin-bottom: .35rem; letter-spacing: .04em; }
+    .qf-input, .qf-select, .qf-textarea {
+      width: 100%; border: 1.5px solid #e0e0e0; border-radius: 11px;
+      padding: .7rem 1rem; font-size: .88rem;
+      font-family: 'Barlow', sans-serif; color: var(--dark);
+      background: var(--bg); outline: none;
+      transition: border-color .2s, box-shadow .2s;
+    }
+    .qf-input:focus, .qf-select:focus, .qf-textarea:focus {
+      border-color: var(--red); box-shadow: 0 0 0 3px rgba(212,32,32,.1);
+    }
+    .qf-textarea { min-height: 110px; resize: vertical; }
+
+    .qf-submit {
+      display: flex; align-items: center; justify-content: center; gap: .5rem;
+      background: linear-gradient(135deg, var(--red), var(--red-dark));
+      color: white; border: none; border-radius: 50px;
+      padding: .9rem 2.5rem; font-weight: 800; font-size: .95rem;
+      cursor: pointer; letter-spacing: .03em;
+      transition: all .25s;
+      box-shadow: 0 6px 20px rgba(212,32,32,.4);
+    }
+    .qf-submit:hover { transform: translateY(-2px); box-shadow: 0 10px 28px rgba(212,32,32,.5); }
+    .qf-submit svg { width: 16px; height: 16px; fill: white; }
+    .qf-success {
+      display: none; text-align: center; padding: 2rem 1rem;
+      background: #f0fdf4; border-radius: 14px; margin-top: 1rem;
+      border: 1px solid #bbf7d0;
+    }
+    .qf-success.show { display: block; }
+    .qf-success h3 { font-family: 'Barlow Condensed', sans-serif; font-size: 1.4rem; font-weight: 900; text-transform: uppercase; color: #16a34a; }
+    .qf-success p { font-size: .88rem; color: #166534; margin-top: .3rem; }
+
+    /* ══ FOOTER ══ */
+    footer { background: #080808; color: rgba(255,255,255,.35); padding: 1.8rem 0; text-align: center; font-size: .8rem; }
+    footer span { color: var(--red); }
+
+    /* ══ ANIMATIONS ══ */
+    @keyframes fadeUp { from{opacity:0;transform:translateY(24px)} to{opacity:1;transform:translateY(0)} }
+    .reveal { opacity: 0; transform: translateY(28px); transition: opacity .65s ease, transform .65s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-delay-1 { transition-delay: .1s; }
+    .reveal-delay-2 { transition-delay: .2s; }
+    .reveal-delay-3 { transition-delay: .3s; }
+
+    /* ══ RESPONSIVE ══ */
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+      .content-grid { grid-template-columns: 1fr; }
+      .qf-grid { grid-template-columns: 1fr 1fr; }
+      .qf-body { padding: 1.5rem; }
+      .qf-header { padding: 1.8rem 1.5rem; }
+    }
+    @media (max-width: 480px) {
+      .qf-grid, .qf-grid-2 { grid-template-columns: 1fr; }
+      .social-btns-mini { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ══ NAVBAR ══ -->
+  <nav id="navbar">
+    <div class="nav-inner">
+      <a href="index.html" class="logo">
+        <div class="logo-icon"><svg viewBox="0 0 24 24"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm0 3l2 4h4l-3.2 2.3 1.2 4-4-2.7-4 2.7 1.2-4L6 9h4l2-4z"/></svg></div>
+        <div class="logo-text">Ginyard<br><span>International Co.</span></div>
+      </a>
+      <ul class="nav-links">
+        <li><a href="../index.html">Home</a></li>
+        <li><a href="../About/about.html">About</a></li>
+        <li><a href="../catalogue/catalogue (1).html">Catalogue</a></li>
+        <li><a href="contact.html" class="active">Contact</a></li>
+        <li><a href="../Log in/login.html" class="btn-login">Log in</a></li>
+      </ul>
+      <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+    </div>
+  </nav>
+
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="../index.html"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>Home</a>
+    <a href="../About/about.html"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.1 2 5 5.1 5 9c0 5.2 7 13 7 13s7-7.8 7-13c0-3.9-3.1-7-7-7z"/></svg>About</a>
+    <a href="../catalogue/catalogue (1).html"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M4 6h16v2H4zm0 5h16v2H4zm0 5h16v2H4z"/></svg>Catalogue</a>
+    <a href="contact.html" class="active"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>Contact</a>
+    <a href="../Log in/login.html" class="m-login">Log in →</a>
+  </div>
+
+  <!-- ══ PAGE HEADER ══ -->
+  <header class="page-header">
+    <div class="ph-grid"></div>
+    <div class="ph-glow"></div>
+    <div class="ph-inner">
+      <div class="ph-eyebrow">📍 UAE Showroom — Always Here For You</div>
+      <h1 class="ph-title">Get In<br><span class="outline">Touch</span></h1>
+      <p class="ph-sub">We're always just a message away. Whether you have a question, a dream car in mind, or simply want to say hello — our team is ready and eager to hear from you.</p>
+      <nav class="breadcrumb">
+        <a href="index.html">Home</a>
+        <span class="sep">›</span>
+        <span class="current">Contact Us</span>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ══ WARMTH BANNER ══ -->
+  <div class="warmth-banner">
+    <div class="container">
+      <div class="warmth-text">🤝 We Can't Wait to Meet You</div>
+      <p class="warmth-sub">
+        Every visit to our showroom is an experience we cherish. We look forward to welcoming you, understanding your vision,<br>
+        and helping you drive away in the car that was made for you.
+      </p>
+    </div>
+  </div>
+
+  <!-- ══ MAIN CONTENT ══ -->
+  <section class="main-section">
+    <div class="container">
+      <div class="content-grid">
+
+        <!-- LEFT: channels + hours -->
+        <div>
+          <div class="section-label reveal" style="font-size:.75rem;font-weight:700;color:var(--red);letter-spacing:.14em;text-transform:uppercase;display:flex;align-items:center;gap:.5rem;margin-bottom:.7rem;">
+            <span style="display:block;width:24px;height:2px;background:var(--red);border-radius:1px;"></span>
+            Reach Us On
+          </div>
+          <h2 class="channels-title reveal">Connect With<br><span class="accent">Our Team</span></h2>
+          <p class="channels-sub reveal">
+            Pick the channel that suits you best. We respond fast — usually within minutes during working hours. No question is too small, no dream is too big.
+          </p>
+
+          <!-- Instagram -->
+          <a href="https://instagram.com/ginyard" target="_blank" class="channel-card ch-instagram reveal">
+            <div class="ch-icon">
+              <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+            </div>
+            <div class="ch-info">
+              <div class="ch-name">Instagram</div>
+              <div class="ch-handle">@ginyard</div>
+              <div class="ch-tag">🔥 Daily updates & new arrivals</div>
+            </div>
+            <div class="ch-arrow"><svg viewBox="0 0 24 24"><path d="M8 4l8 8-8 8"/></svg></div>
+          </a>
+
+          <!-- Facebook -->
+          <a href="https://facebook.com/ginyard" target="_blank" class="channel-card ch-facebook reveal reveal-delay-1">
+            <div class="ch-icon">
+              <svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+            </div>
+            <div class="ch-info">
+              <div class="ch-name">Facebook</div>
+              <div class="ch-handle">Ginyard International Co.</div>
+              <div class="ch-tag">📰 Events, offers & showroom news</div>
+            </div>
+            <div class="ch-arrow"><svg viewBox="0 0 24 24"><path d="M8 4l8 8-8 8"/></svg></div>
+          </a>
+
+          <!-- WhatsApp -->
+          <a href="https://wa.me/971500000000" target="_blank" class="channel-card ch-whatsapp reveal reveal-delay-2">
+            <div class="ch-icon">
+              <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            </div>
+            <div class="ch-info">
+              <div class="ch-name">WhatsApp</div>
+              <div class="ch-handle">+971 50 000 0000 <span id="liveNow"></span></div>
+              <div class="ch-tag">⚡ Fastest response — usually within 5 min</div>
+            </div>
+            <div class="ch-arrow"><svg viewBox="0 0 24 24"><path d="M8 4l8 8-8 8"/></svg></div>
+          </a>
+
+          <!-- working hours -->
+          <div class="hours-card reveal reveal-delay-3">
+            <div class="hours-title">
+              <svg viewBox="0 0 24 24"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm.5 5v5.25l4.5 2.67-.75 1.23-5.25-3.15V7h1.5z"/></svg>
+              Showroom Hours
+            </div>
+            <div class="hours-row"><span class="hours-day">Monday – Thursday</span><span class="hours-time">9:00 AM – 8:00 PM</span></div>
+            <div class="hours-row"><span class="hours-day">Friday</span><span class="hours-time">2:00 PM – 9:00 PM</span></div>
+            <div class="hours-row"><span class="hours-day">Saturday</span><span class="hours-time">10:00 AM – 7:00 PM</span></div>
+            <div class="hours-row"><span class="hours-day">Sunday</span><span class="hours-time closed">Closed</span></div>
+          </div>
+        </div>
+
+        <!-- RIGHT: agent + testimonial -->
+        <div class="right-col">
+
+          <!-- Direct contact agent -->
+          <div class="agent-card reveal">
+            <div class="agent-header">
+              <div class="agent-label">📞 Talk to a Real Person</div>
+              <div class="agent-title">Direct Contact<br>With Our Team</div>
+              <div class="agent-desc">Skip the wait. Our sales specialists are here to answer every question and guide you to your perfect car.</div>
+            </div>
+            <div class="agent-body">
+              <div class="agent-info-row">
+                <div class="ai-icon phone"><svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg></div>
+                <div><div class="ai-label">Phone</div><div class="ai-val"><a href="tel:+971500000000">+971 50 000 0000</a></div></div>
+              </div>
+              <div class="agent-info-row">
+                <div class="ai-icon wa"><svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></div>
+                <div><div class="ai-label">WhatsApp</div><div class="ai-val"><a href="https://wa.me/971500000000" target="_blank">+971 50 000 0000</a></div></div>
+              </div>
+              <div class="agent-info-row">
+                <div class="ai-icon mail"><svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg></div>
+                <div><div class="ai-label">Email</div><div class="ai-val"><a href="mailto:info@ginyard.ae">info@ginyard.ae</a></div></div>
+              </div>
+              <div class="agent-info-row">
+                <div class="ai-icon loc"><svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg></div>
+                <div><div class="ai-label">Location</div><div class="ai-val">Dubai, UAE — Sheikh Zayed Road</div></div>
+              </div>
+              <a href="https://wa.me/971500000000?text=Hello%20Ginyard!%20I%27d%20like%20to%20speak%20with%20a%20sales%20specialist." target="_blank" class="quick-wa">
+                <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                Start a WhatsApp Chat Now
+              </a>
+            </div>
+          </div>
+
+          <!-- Testimonial -->
+          <div class="testimonial-card reveal reveal-delay-1">
+            <div class="tcard-quote">"</div>
+            <p class="tcard-text">
+              I walked into Ginyard not knowing exactly what I wanted. The team spent two hours with me, asked about my lifestyle, my taste, my budget — and then introduced me to my Porsche 911. Three years later, it's still the best decision I've ever made. These people truly care.
+            </p>
+            <div class="tcard-author">
+              <div class="tcard-avatar">KA</div>
+              <div>
+                <div class="tcard-name">Khalid Al-Mansouri</div>
+                <div class="tcard-meta">Dubai, UAE — Porsche 911 Owner</div>
+                <div class="tcard-stars">★★★★★</div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ QUICK MESSAGE FORM ══ -->
+  <section class="quick-form-section">
+    <div class="container">
+      <div class="qf-card reveal">
+        <div class="qf-header">
+          <div class="qf-header-title">Send Us a Message 💬</div>
+          <p class="qf-header-sub">
+            Not ready to call? Drop us a message and we'll get back to you faster than you think.<br>
+            We genuinely look forward to every conversation — it starts with you.
+          </p>
+        </div>
+        <div class="qf-body">
+          <div id="qfSuccess" class="qf-success">
+            <h3>✅ Message Sent!</h3>
+            <p>Thank you for reaching out. Our team will contact you within a few hours.</p>
+          </div>
+          <div id="qfFormBody">
+            <div class="qf-grid">
+              <div>
+                <label class="qf-label">First Name *</label>
+                <input class="qf-input" type="text" id="qfFname" placeholder="Ahmad" />
+              </div>
+              <div>
+                <label class="qf-label">Last Name *</label>
+                <input class="qf-input" type="text" id="qfLname" placeholder="Al-Rashid" />
+              </div>
+              <div>
+                <label class="qf-label">Phone / WhatsApp *</label>
+                <input class="qf-input" type="tel" id="qfPhone" placeholder="+971 50 000 0000" />
+              </div>
+            </div>
+            <div class="qf-grid-2">
+              <div>
+                <label class="qf-label">Email</label>
+                <input class="qf-input" type="email" id="qfEmail" placeholder="you@email.com" />
+              </div>
+              <div>
+                <label class="qf-label">I'm Interested In</label>
+                <select class="qf-select" id="qfInterest">
+                  <option>Buying a vehicle</option>
+                  <option>Vehicle inquiry</option>
+                  <option>Test drive request</option>
+                  <option>General question</option>
+                  <option>Other</option>
+                </select>
+              </div>
+            </div>
+            <div class="qf-single">
+              <label class="qf-label">Your Message *</label>
+              <textarea class="qf-textarea" id="qfMsg" placeholder="Tell us about your dream car, your budget, or anything else on your mind. We read every message personally."></textarea>
+            </div>
+            <button class="qf-submit" onclick="submitForm()">
+              <svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
+              Send Message
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>© 2025 <span>Ginyard International Co.</span> — Dubai, UAE. All rights reserved.</p>
+  </footer>
+
+  <script src="index.js">
+  
+  </script>
+</body>
+</html>
